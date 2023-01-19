@@ -15,7 +15,9 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- CSS Libraries -->
-    @include($css)
+    @stack('css-custom')
+    <!-- CSS Libraries -->
+    <link rel="stylesheet" href="admin_theme/library/prismjs/themes/prism.min.css">
     <!-- Template CSS -->
     <link rel="stylesheet" href="/admin_theme/css/style.css">
     <link rel="stylesheet" href="/admin_theme/css/components.css">
@@ -47,10 +49,8 @@
                     <div class="section-header">
                         <h1>{{ $tittle }}</h1>
                     </div>
-                    <div class="section-body">
-                        @yield('admin-container')
-                    </div>
                 </section>
+                @yield('admin-container')
             </div>
 
             <!-- Footer -->
@@ -76,13 +76,18 @@
     <script src="/admin_theme/js/stisla.js"></script>
 
     <!-- JS Libraies -->
-    <script src="/admin_theme/library/bootstrap-daterangepicker/daterangepicker.js"></script>
-    <script src="/admin_theme/library/summernote/dist/summernote-bs4.js"></script>
+    {{-- <script src="/admin_theme/library/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script src="/admin_theme/library/summernote/dist/summernote-bs4.js"></script> --}}
+    <!-- JS Libraies -->
+    <script src="admin_theme/library/prismjs/prism.js"></script>
+
+
     <!-- Page Specific JS File -->
-    @include($js)
+
     <!-- Template JS File -->
     <script src="/admin_theme/js/scripts.js"></script>
-    {{-- <script src="/admin_theme/js/custom.js"></script> --}}
+    <script src="/admin_theme/js/custom.js"></script>
+    @stack('js-custom')
 </body>
 
 </html>

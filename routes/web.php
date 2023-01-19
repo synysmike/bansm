@@ -16,5 +16,9 @@ use App\Http\Controllers\SekolahController;
 */
 
 Route::get('/', [HomeController::class, 'index']);
-Route::get('sekolah', [SekolahController::class, 'index']);
-Route::get('sekolah/{id}', [SekolahController::class, 'post']);
+Route::get('tes', function(){
+    return view('admin.modal');
+});
+// Route::get('sekolah', [SekolahController::class, 'index']);
+// Route::get('sekolah/{id}', [SekolahController::class, 'show']);
+Route::resource('sekolah', SekolahController::class);

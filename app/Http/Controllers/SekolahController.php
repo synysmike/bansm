@@ -29,7 +29,7 @@ class SekolahController extends Controller
                 ->addIndexColumn()
                 ->addColumn('aksi', function ($data) {
                     $url = Crypt::encrypt($data->id);
-                    return '<a href="/sekolah/' . $url . '" class="btn btn-info"> Edit</a>';
+                    return '<a href="javascript:void(0)" data-id="'.$url.'" class="btn btn-info show-btn"> Edit</a>';
                 })
                 ->rawColumns(['aksi'])
                 ->make(true);
@@ -39,17 +39,7 @@ class SekolahController extends Controller
     }
     public function post($id)
     {   
-        $decid = Crypt::decrypt($id);        // dd($decid);
-        $data = Sekolah::where('id', $decid)->first();        
-        $nama = $data->nama;
-        $js = 'admin/layout/js/dttblejs';
-        $css = 'admin/layout/css/dttblecss';
-        // $tittle = "UNHASY | Universitas Hasyim Asy'Ari Tebuireng";
-        $tittle = "BAN-S/M | " . $nama;
-        return view(
-            'admin.child.edit_sekolah',
-            compact('data', 'tittle','js','css')
-        );
+        
     }
 
     /**
@@ -79,9 +69,14 @@ class SekolahController extends Controller
      * @param  \App\Models\sekolah  $sekolah
      * @return \Illuminate\Http\Response
      */
-    public function show(sekolah $sekolah)
+    public function show($id)
     {
         //
+        $decid = Crypt::decrypt($id);        // dd($decid);
+        $where = array('id' => $decid);
+        $unit = Sekolah::where($where)->first();
+
+        return response()->json($unit);
     }
 
     /**
