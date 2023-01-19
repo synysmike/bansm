@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="/admin_theme/css/style.css">
     <link rel="stylesheet" href="/admin_theme/css/components.css">
 </head>
+1
 
 <body>
     <div id="app">
