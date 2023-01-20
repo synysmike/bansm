@@ -41,8 +41,8 @@
 <body>
     <div id="app">
         <div class="main-wrapper">
-            @include('admin.layout.nav')
-            @include('admin.layout.side')
+            @include('ad_layout.nav')
+            @include('ad_layout.side')
             <!-- Content -->
             <div class="main-content">
                 <section class="section">

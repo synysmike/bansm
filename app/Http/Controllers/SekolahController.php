@@ -34,7 +34,7 @@ class SekolahController extends Controller
                 ->rawColumns(['aksi'])
                 ->make(true);
         }
-        return view('admin.child.daftar_sekolah', compact('tittle','js','css')
+        return view('sekolah.daftar_sekolah', compact('tittle','js','css')
         );
     }
     public function post($id)
