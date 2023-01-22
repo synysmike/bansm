@@ -75,8 +75,8 @@ class SekolahController extends Controller
         $decid = Crypt::decrypt($id);        // dd($decid);
         $where = array('id' => $decid);
         $unit = Sekolah::where($where)->first();
-
         return response()->json($unit);
+        
     }
 
     /**

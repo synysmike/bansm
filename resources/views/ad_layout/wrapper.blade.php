@@ -7,8 +7,7 @@
     <title>{{ $tittle }}</title>
 
     <!-- General CSS Files -->
-    <link rel="stylesheet" href="/admin_theme/library/summernote/dist/summernote-bs4.css">
-    <link rel="stylesheet" href="/admin_theme/library/bootstrap-daterangepicker/daterangepicker.css">
+    
     <link rel="stylesheet" href="/admin_theme/library/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
@@ -52,7 +51,6 @@
                 </section>
                 @yield('admin-container')
             </div>
-
             <!-- Footer -->
             <footer class="main-footer">
                 <div class="footer-left">
