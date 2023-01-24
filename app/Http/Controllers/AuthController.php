@@ -29,7 +29,7 @@ class AuthController extends Controller
                 return redirect()->intended('/sekolah');
             }elseif($user->jabatan == 'lembaga'){
                 $request->session()->regenerate();
-                return redirect()->intended('/sekolah/show');
+                return redirect()->intended('/detilsekolah');
             }
         }
         return back()->with('loginError','Login Gagal');

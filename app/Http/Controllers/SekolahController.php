@@ -22,9 +22,8 @@ class SekolahController extends Controller
     public function index(Request $request)
     {
         //
-        $tittle = 'Datatable Sekolah';
-        $js = 'admin/layout/js/dttblejs';
-        $css = 'admin/layout/css/dttblecss';
+        $user = Auth::user();
+        $tittle = $user->nama;
         $data = Sekolah::all();
         // return $data;
         if ($request->ajax()) {
@@ -39,7 +38,7 @@ class SekolahController extends Controller
         }
         return view(
             'sekolah.daftar_sekolah',
-            compact('tittle', 'js', 'css')
+            compact('tittle')
         );
     }
     public function post($id)
@@ -91,8 +90,6 @@ class SekolahController extends Controller
             'no_ks' => $request->hpks,
             'hppj' => $request->hppj]);
         return response()->json($unit);
-
-
     }
 
     /**
@@ -104,15 +101,7 @@ class SekolahController extends Controller
     public function show(Request $request)
     {
         //
-        $user = Auth::user();
-        $tittle = $user->nama;
-        $decid = $user->id;
-        $where = array('id' => $decid);
-        $unit = Sekolah::where($where)->first();
-
-        return view(
-            'sekolah.edit_sekolah',
-            compact('unit','tittle'));
+        
     }
 
     /**
@@ -167,17 +156,6 @@ class SekolahController extends Controller
             $file->store('ijop/'.$filename);
         }
         Sekolah::upsert($validator);
-
-
-
-
-
-
-
-
-
-
-
         // if ($validator) {
         //     return response()->json([
         //         'status'=>400,

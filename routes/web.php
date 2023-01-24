@@ -3,6 +3,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SekolahController;
+use App\Http\Controllers\DetilSekolahController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,11 +18,16 @@ use App\Http\Controllers\SekolahController;
 
 Route::get('/login', [AuthController::class,'index'])->name('login')->middleware('guest');
 Route::post('/login', [AuthController::class,'authenticate'])->name('authenticate');
-Route::post('/logout', [AuthController::class,'logout'])->name('logout');
 Route::get('/', [HomeController::class, 'index']);
 Route::get('tes', function(){
     return view('admin.modal');
 });
 // Route::get('sekolah', [SekolahController::class, 'index']);
 // Route::get('sekolah/{id}', [SekolahController::class, 'show']);
-Route::resource('sekolah', SekolahController::class)->middleware('auth');
+Route::middleware(['auth', 'role:sekolah'])->group(function () {
+    Route::resource('/detilsekolah', DetilSekolahController::class);
+});
+Route::middleware(['auth', 'role:kpa|admin'])->group(function () {
+    Route::post('/logout', [AuthController::class,'logout']);
+    Route::resource('sekolah', SekolahController::class);
+});

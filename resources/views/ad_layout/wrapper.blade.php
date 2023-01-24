@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="/admin_theme/css/components.css">
 
     <!-- Start GA -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
+    {{-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script> --}}
     <script>
         window.dataLayer = window.dataLayer || [];
 
