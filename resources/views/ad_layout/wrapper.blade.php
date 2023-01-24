@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ $tittle }}</title>
 
     <!-- General CSS Files -->
-    
     <link rel="stylesheet" href="/admin_theme/library/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
@@ -16,7 +16,7 @@
     <!-- CSS Libraries -->
     @stack('css-custom')
     <!-- CSS Libraries -->
-    <link rel="stylesheet" href="admin_theme/library/prismjs/themes/prism.min.css">
+    <link rel="stylesheet" href="/admin_theme/library/prismjs/themes/prism.min.css">
     <!-- Template CSS -->
     <link rel="stylesheet" href="/admin_theme/css/style.css">
     <link rel="stylesheet" href="/admin_theme/css/components.css">
@@ -37,28 +37,24 @@
 </head>
 </head>
 
-<body>
+<body class="layout-3">
     <div id="app">
-        <div class="main-wrapper">
+        <div class="main-wrapper container">
             @include('ad_layout.nav')
-            @include('ad_layout.side')
+            {{-- @include('ad_layout.side') --}}
             <!-- Content -->
             <div class="main-content">
-                <section class="section">
-                    <div class="section-header">
-                        <h1>{{ $tittle }}</h1>
-                    </div>
-                </section>
+                
                 @yield('admin-container')
             </div>
             <!-- Footer -->
             <footer class="main-footer">
                 <div class="footer-left">
-                    Copyright &copy; 2018 <div class="bullet"></div> Design By <a href="https://nauval.in/">Muhamad
-                        Nauval Azhar</a>
+                    Copyright &copy; 2022 <div class="bullet"></div> <a href="https://bansmprovjatim.com">
+                        BAN-S/M Provinsi Jawa Timur</a>
                 </div>
                 <div class="footer-right">
-                    2.3.0
+                    ir.teguh IT BANSMJATIM
                 </div>
             </footer>
         </div>
@@ -77,7 +73,7 @@
     {{-- <script src="/admin_theme/library/bootstrap-daterangepicker/daterangepicker.js"></script>
     <script src="/admin_theme/library/summernote/dist/summernote-bs4.js"></script> --}}
     <!-- JS Libraies -->
-    <script src="admin_theme/library/prismjs/prism.js"></script>
+    <script src="/admin_theme/library/prismjs/prism.js"></script>
 
 
     <!-- Page Specific JS File -->

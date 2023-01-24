@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title>Login &mdash; Stisla</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>Login &mdash; BAN-S/M JATIM</title>
 
     <!-- General CSS Files -->
     <link rel="stylesheet" href="/admin_theme/library/bootstrap/dist/css/bootstrap.min.css">
@@ -27,20 +28,33 @@
             <div class="d-flex align-items-stretch flex-wrap">
                 <div class="col-lg-4 col-md-6 col-12 order-lg-1 min-vh-100 order-2 bg-white">
                     <div class="m-3 p-4">
-                        <img src="/admin_theme/img/stisla-fill.svg" alt="logo" width="80"
+                        @if(session()->has('success'))
+                        <div class="alert alert-success alert-dismissable fade show" role="alert">
+                            {{ session('success') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        @endif
+                        @if(session()->has('loginError'))
+                        <div class="alert alert-danger alert-dismissable fade show" role="alert">
+                            {{ session('loginError') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        @endif
+                        <img src="/ban.png" alt="logo" width="80"
                             class="shadow-light rounded-circle mb-5 mt-2">
-                        <h4 class="text-dark font-weight-normal">Welcome to <span class="font-weight-bold">Stisla</span>
+                        <h4 class="text-dark font-weight-normal">Selamat Datang Di <span class="font-weight-bold">BAN-S/M Provinsi Jawa Timur</span>
                         </h4>
-                        <p class="text-muted">Before you get started, you must login or register if you don't already
-                            have an account.</p>
-                        <form method="POST" action="#" class="needs-validation" novalidate="">
+                        <p class="text-muted"></p>
+                        <form method="post" action="/login" class="needs-validation" novalidate="">
+                            @csrf
                             <div class="form-group">
-                                <label for="email">Email</label>
-                                <input id="email" type="email" class="form-control" name="email" tabindex="1"
-                                    required autofocus>
+                                <label for="username">Username</label>
                                 <div class="invalid-feedback">
                                     Please fill in your email
                                 </div>
+                                <input id="username" type="email" class="form-control" name="username" tabindex="1"
+                                value="{{ old('username') }}"    required autofocus>
+                                
                             </div>
 
                             <div class="form-group">
@@ -54,37 +68,26 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <div class="custom-control custom-checkbox">
                                     <input type="checkbox" name="remember" class="custom-control-input" tabindex="3"
                                         id="remember-me">
                                     <label class="custom-control-label" for="remember-me">Remember Me</label>
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="form-group text-right">
-                                <a href="auth-forgot-password.html" class="float-left mt-3">
+                                {{-- <a href="auth-forgot-password.html" class="float-left mt-3">
                                     Forgot Password?
-                                </a>
+                                </a> --}}
                                 <button type="submit" class="btn btn-primary btn-lg btn-icon icon-right"
                                     tabindex="4">
                                     Login
                                 </button>
                             </div>
 
-                            <div class="mt-5 text-center">
-                                Don't have an account? <a href="auth-register.html">Create new one</a>
-                            </div>
+                            
                         </form>
-
-                        <div class="text-small mt-5 text-center">
-                            Copyright &copy; Your Company. Made with 💙 by Stisla
-                            <div class="mt-2">
-                                <a href="#">Privacy Policy</a>
-                                <div class="bullet"></div>
-                                <a href="#">Terms of Service</a>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div class="col-lg-8 col-12 order-lg-2 min-vh-100 background-walk-y position-relative overlay-gradient-bottom order-1"
@@ -119,8 +122,15 @@
     <!-- Page Specific JS File -->
 
     <!-- Template JS File -->
-    <script src="/admin_theme/js/scripts.js"></script>
-    <script src="/admin_theme/js/custom.js"></script>
+    {{-- <script src="/admin_theme/js/scripts.js"></script> --}}
+    {{-- <script src="/admin_theme/js/custom.js"></script> --}}
+    <script>
+    $("[data-background]").each(function() {
+        var me = $(this);
+        me.css({
+          backgroundImage: 'url(' + me.data('background') + ')'
+        });
+      });</script>
 </body>
 
 </html>

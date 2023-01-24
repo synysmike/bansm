@@ -1,6 +1,6 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SekolahController;
 
@@ -15,10 +15,13 @@ use App\Http\Controllers\SekolahController;
 |
 */
 
+Route::get('/login', [AuthController::class,'index'])->name('login')->middleware('guest');
+Route::post('/login', [AuthController::class,'authenticate'])->name('authenticate');
+Route::post('/logout', [AuthController::class,'logout'])->name('logout');
 Route::get('/', [HomeController::class, 'index']);
 Route::get('tes', function(){
     return view('admin.modal');
 });
 // Route::get('sekolah', [SekolahController::class, 'index']);
 // Route::get('sekolah/{id}', [SekolahController::class, 'show']);
-Route::resource('sekolah', SekolahController::class);
+Route::resource('sekolah', SekolahController::class)->middleware('auth');

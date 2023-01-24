@@ -1,10 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\sekolah;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Events\Validated;
 use Illuminate\Support\Facades\Crypt;
 use App\Http\Requests\StoresekolahRequest;
 use App\Http\Requests\UpdatesekolahRequest;
@@ -29,17 +32,18 @@ class SekolahController extends Controller
                 ->addIndexColumn()
                 ->addColumn('aksi', function ($data) {
                     $url = Crypt::encrypt($data->id);
-                    return '<a href="javascript:void(0)" data-id="'.$url.'" class="btn btn-info show-btn"> Edit</a>';
+                    return '<a href="javascript:void(0)" data-id="' . $url . '" class="btn btn-info show-btn"> Edit</a>';
                 })
                 ->rawColumns(['aksi'])
                 ->make(true);
         }
-        return view('sekolah.daftar_sekolah', compact('tittle','js','css')
+        return view(
+            'sekolah.daftar_sekolah',
+            compact('tittle', 'js', 'css')
         );
     }
     public function post($id)
-    {   
-        
+    {
     }
 
     /**
@@ -58,9 +62,37 @@ class SekolahController extends Controller
      * @param  \App\Http\Requests\StoresekolahRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoresekolahRequest $request)
-    {
-        //
+    public function store(Request $request)
+    {        
+        $alldata = $request->all();
+        $id = $request->id;
+        $validator = $request->validate([
+            'kelurahan' => 'required',
+            'kecamatan' => 'required',
+            'alamat' => 'required',
+            'kelas' => 'max:25',
+            'keterangan' => 'max:250',
+            'kondisi' => 'required',
+            'file_ijop' => 'file|mimes:pdf,PDF|max:2048',
+            'masa' => 'after:01/01/2019|before:01/01/2023',
+            
+        ]);
+        $unit = Sekolah::updateOrCreate(
+            ['id' => $id],
+            // $validator);
+            ['kelurahan' => $request->kelurahan,
+            'kecamatan' => $request->kecamatan,
+            'alamat' => $request->alamat,
+            'kelas' => $request->kelas,
+            'kondisi' => $request->kondisi,
+            'keterangan' => $request->keterangan,
+            'namaks' => $request->namaks,
+            'namapj' => $request->namapj,
+            'no_ks' => $request->hpks,
+            'hppj' => $request->hppj]);
+        return response()->json($unit);
+
+
     }
 
     /**
@@ -69,14 +101,18 @@ class SekolahController extends Controller
      * @param  \App\Models\sekolah  $sekolah
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
         //
-        $decid = Crypt::decrypt($id);        // dd($decid);
+        $user = Auth::user();
+        $tittle = $user->nama;
+        $decid = $user->id;
         $where = array('id' => $decid);
         $unit = Sekolah::where($where)->first();
-        return response()->json($unit);
-        
+
+        return view(
+            'sekolah.edit_sekolah',
+            compact('unit','tittle'));
     }
 
     /**
@@ -97,9 +133,72 @@ class SekolahController extends Controller
      * @param  \App\Models\sekolah  $sekolah
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatesekolahRequest $request, sekolah $sekolah)
+    public function update(UpdatesekolahRequest $request, $id)
     {
         //
+        $decid = Crypt::decrypt($id);
+        // return response()->json([
+        //     'status'=>'200',
+        //     'message'=>'Mengembalikan ID ='+$decid
+        // ]);
+
+        $validator = $request->validate([
+            'kelurahan' => 'required',
+            'kecamatan' => 'required',
+            'alamat' => 'required',
+            'kelas' => 'max:25',
+            'keterangan' => 'max:250',
+            'kondisi' => 'required',
+            'file_ijop' => 'required|file|mimes:pdf,PDF|max:2048',
+            'masa' => 'required|after:01/01/2019|before:01/01/2023',
+            'namaks' => 'min:8|max:50',
+            'namapj' => 'min:8|max:50',
+            'hppj' => 'min:8|max:13|numeric',
+            'hpks' => 'min:8|max:13|numeric'
+        ]);
+
+        $where = array('id' => $decid);
+        $npsn = $where['npsn'];
+        if ($request->file('file_ijop')){
+            $file = $request->file('ijop');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time()."_".$npsn.$extension;
+            $validator['file_ijop'] = $filename;
+            $file->store('ijop/'.$filename);
+        }
+        Sekolah::upsert($validator);
+
+
+
+
+
+
+
+
+
+
+
+        // if ($validator) {
+        //     return response()->json([
+        //         'status'=>400,
+        //         'messages'=>'mohon cek data anda'
+        //     ]);
+        // } else {
+        //     $where = array('id' => $decid);
+            // $where->kelurahan = $request->input('kelurahan');
+            // $where->kecamatan = $request->input('kecamatan');
+            // $where->alamat = $request->input('alamat');
+            // $where->kelas = $request->input('kelas');
+            // $where->keterangan = $request->input('keterangan');
+            // $where->kondisi = $request->input('kondisi');
+            // $where->masa = $request->input('masa');
+            // $where->namaks = $request->input('namaks');
+            // $where->namapj = $request->input('namapj');
+            // $where->hpks = $request->input('hpks');
+            // $where->hppj = $request->input('hppj');
+            
+        // }
+        
     }
 
     /**

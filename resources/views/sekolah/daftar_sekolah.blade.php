@@ -40,8 +40,8 @@
 
 <div class="modal fade" tabindex="-1" role="dialog" id="modal-show">
     <div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
-        <div class="modal-content">
-
+        <form id="id-form" action="" enctype="multipart/form-data">
+            <div class="modal-content">
                 <div class="modal-header">
                     <h5 id="tittle" class="modal-title"></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -54,8 +54,11 @@
                             <div class='form-group row mb-4'> <label
                                     class='col-form-label text-md-right col-12 col-md-3 col-lg-3'
                                     for='npsn'>NPSN</label>
-                                <div class='col-sm-12 col-md-7'> <input disabled id='npsn' type='text'
-                                        class='form-control' placeholder='npsn' name='npsn' value=''>
+                                <div class='col-sm-12 col-md-7'>
+                                    <input id='id' type='hidden' class='form-control' placeholder='npsn' name='id'
+                                        value=''>
+                                    <input disabled id='npsn' type='text' class='form-control' placeholder='npsn'
+                                        name='npsn' value=''>
                                 </div>
                             </div>
                             <div class='form-group row mb-4'> <label
@@ -154,6 +157,11 @@
                                     for='kecamatan'>Kecamatan</label>
                                 <div class='col-sm-12 col-md-7'> <input id='kecamatan' type='text' class='form-control'
                                         placeholder='kecamatan' name='kecamatan' value=''>
+                                    @error('kecamatan')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class='form-group row mb-4'>
@@ -165,7 +173,8 @@
                                 </div>
                             </div>
                             <div class='form-group row mb-4'> <label
-                                    class='col-form-label text-md-right col-12 col-md-3 col-lg-3' for='alamat'> Alamat
+                                    class='col-form-label text-md-right col-12 col-md-3 col-lg-3' for='alamat'>
+                                    Alamat
                                 </label>
                                 <div class='col-sm-12 col-md-7'> <input id='alamat' type='text' class='form-control'
                                         placeholder='alamat' name='alamat' value=''>
@@ -178,6 +187,11 @@
                                 <div class='col-sm-12 col-md-7'>
                                     <input id='namaks' type='text' class='form-control'
                                         placeholder='Nama Kepala Sekolah' name='namaks' value=''>
+                                    @error('namaks')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class='form-group row mb-4'> <label
@@ -187,6 +201,11 @@
                                 <div class='col-sm-12 col-md-7'>
                                     <input id='hpks' type='text' class='form-control' placeholder='No HP Kepala Sekolah'
                                         name='hpks' value=''>
+                                    @error('hpks')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class='form-group row mb-4'> <label
@@ -194,11 +213,11 @@
                                     Nama Penanggung Jawab Akreditasi
                                 </label>
                                 <div class='col-sm-12 col-md-7'>
-                                    <input id='namapj type=' text' class='form-control'
-                                        placeholder='Nama Penanggung Jawab Akreditasi' name='namapj value=''>
+                                    <input id='namapj' type=' text' class='form-control'
+                                        placeholder='Nama Penanggung Jawab Akreditasi' name='namapj' value=''>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class=' form-group row mb-4'> <label
+                                <div class=' form-group row mb-4'> <label
                                         class='col-form-label text-md-right col-12 col-md-3 col-lg-3' for='hppj'>
                                         No HP Penanggung Jawab Akreditasi
                                     </label>
@@ -230,12 +249,12 @@
                                         for='status'>Kondisi Lembaga</label>
                                     <div class='col-sm-12 col-md-7'>
                                         <div class="col-md12">
-                                            <input checked type="radio" id="kondisi1" value="1" name="kondisi"
+                                            <input checked="" type="radio" id="kondisi1" value="1" name="kondisi"
                                                 class="form-control-input">
                                             <label class="col-form-label" for="kondisi1">Masih Buka</label>
                                         </div>
                                         <div class="col-md12">
-                                            <input type="radio" id="kondisi2" value="0" name="kondisi"
+                                            <input checked="" type="radio" id="kondisi2" value="0" name="kondisi"
                                                 class="form-control-input">
                                             <label class="col-form-label " for="kondisi2">Sudah Tutup</label>
                                         </div>
@@ -250,7 +269,7 @@
                                     </div>
                                 </div>
 
-                                <div class='form-group row mb-4'> <label
+                                <div id="field_bt" class='form-group row mb-4'> <label
                                         class='col-form-label text-md-right col-12 col-md-3 col-lg-3' for='kelas'>KELAS
                                         Terakhir (Khusus Sasaran BT)</label>
                                     <div class='col-sm-12 col-md-7'> <input id='kelas' type='text' class='form-control'
@@ -271,10 +290,11 @@
                     </div>
                     <div class="modal-footer bg-whitesmoke br">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button id="form_submit" type="button" class="btn btn-primary">Save changes</button>
+                        <button id="form_submit" type="submit" class="btn btn-primary">Save changes</button>
                     </div>
 
-        </div>
+                </div>
+        </form>
     </div>
 </div>
 @endsection
@@ -283,13 +303,18 @@
 <script src="admin_theme/library/datatables/media/js/jquery.dataTables.min.js"></script>
 <script src="admin_theme/library/jquery-ui-dist/jquery-ui.min.js"></script>
 <script src="/admin_theme/library/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script src="admin_theme/library/sweetalert/dist/sweetalert.min.js"></script>
 <script src="/admin_theme/library/summernote/dist/summernote-bs4.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"
+    integrity="sha512-0QDLUJ0ILnknsQdYYjG7v2j8wERkKufvjBNmng/EdR/s/SE7X8cQ9y0+wMzuQT0lfXQ/NhG+zhmHNOWTUS3kMA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/additional-methods.js"></script>
 <!-- Page Specific JS File -->
 {{-- <script src="admin_theme/js/page/bootstrap-modal.js"></script> --}}
 <script>
     $(document).ready(function () {
         //datatable
-        $('#table-1').DataTable({
+        var table = $('#table-1').DataTable({
             processing: true,
             serverSide: true, //aktifkan server-side 
             ajax: {
@@ -333,6 +358,7 @@
         });
         // modal
         $(document).on('click', '.show-btn', function () {
+            $('#id-form').trigger("reset");
             var data_id = $(this).data('id');
             $.get("/sekolah/" + data_id, function (data) {
                 // $("#modal-judul").html("Edit Data");
@@ -340,6 +366,7 @@
                 $("#modal-show").modal('show');
                 $('#tittle').text(data.nama);
                 $('#no').val(data.no);
+                $('#id').val(data.id);
                 $('#npsn').val(data.npsn);
                 $('#nama_satuan_pendidikan').val(data.nama);
                 $('#jenjang1').val(data.jenjang1);
@@ -353,13 +380,26 @@
                 $('#tahun_akre').val(data.tahun_akre);
                 $('#nilai_akhir').val(data.nilai_akhir);
                 $('#peringkat').val(data.peringkat);
+                $('#namaks').val(data.namaks);
+                $('#hpks').val(data.no_ks);
+                $('#namapj').val(data.namapj);
+                $('#hppj').val(data.hppj);
                 $('#no_sk').val(data.no_sk);
                 $('#tgl_sk').val(data.tgl_sk);
                 $('#status_sasaran').val(data.status_sasaran);
                 $('#tahap_visit').val(data.tahap_visit);
-                $('#kelas').val(data.kelas);
+                var smmrnote = data.keterangan;
+                $(".summernote-simple").summernote('code', smmrnote);
                 $('#kuota_bt').val(data.kuota_bt);
                 var status = data.status;
+                var peringkat = data.peringkat;
+
+                if (peringkat == "BT") {
+                    $('#field_bt').show();
+                } else {
+                    $('#field_bt').hide();
+                }
+
                 if (status == "NEGERI") {
                     $('#collapse1').hide();
                     $('#collapse2').hide();
@@ -368,8 +408,19 @@
                     $('#collapse2').show();
 
                 }
-                var belum = document.getElementById('kondisi2');
-                if (belum.checked) {
+                var buka = document.getElementById('kondisi1');
+                var tutup = document.getElementById('kondisi2');
+                var kondisi = data.kondisi;
+                if (kondisi == 0) {
+                    tutup.checked = true
+                    buka.checked = false
+
+                } else {
+                    tutup.checked = false
+                    buka.checked = true
+
+                }
+                if (tutup.checked) {
                     $('#div-keterangan').show();
                 } else {
                     $('#div-keterangan').hide();
@@ -382,38 +433,74 @@
                     $('#div-keterangan').show();
                 });
 
-                $('#form_submit').click(function () {                    
-                    var up_data = {
-                        'kelurahan': $('#kelurahan').val(),
-                        'kecamatan': $('#kecamatan').val(),
-                        'kelas': $('#kelas').val(),
-                        'keterangan': $('#keterangan').val(),
-                        'kondisi': $('#kondisi').val(),
 
-                    }
-                    $.ajax({
-                        type: "PUT",
-                        url: "sekolah/"+data_id,
-                        data: up_data,
-                        dataType: "json",
-                        success: function (response) {
-                            console.log(data_id);
+                // klik submit
+                if ($("#id-form").length > 0) {
+                    $("#id-form").validate({
+                        // validasi mime type
+                        rules: {
+                            document: {
+                                // wajib
+                                extension: "pdf", // ekstensi pdf
+                                filesize: 2097152, // ukuran file < 2mb
+                            }
+                        },
+                        messages: {
+                            document: {
+                                required: "Tidak Boleh Kosong",
+                                extension: "Mohon mengunggah dokumen berekstensi *pdf"
+                            }
+                        },
+                        submitHandler: function (form) {
+                            var actionType = $('#form_submit').val();
+                            var formData = new FormData(form);
+                            $('#form_submit').html('Menyimpan . .');
+                            $.ajax({
+                                type: "POST",
+                                url: "{{ route('sekolah.store') }}",
+                                data: formData,
+                                dataType: 'json',
+                                processData: false,
+                                contentType: false,
+                                success: function (data) {
+                                    $('#form-tambah-edit').trigger(
+                                        "reset");
+                                    $('#modal-show').modal(
+                                        "hide");
+                                    $('#form_submit').html('Simpan');
+                                    //Reload Total Finansial Planing
+                                    swal("Berhasil",
+                                        "Berkas telah tersimpan",
+                                        "success");
+                                    // refresh yajra datatable
+                                    var oTable = $("#table-1")
+                                        .dataTable();
+                                    oTable.fnDraw(false);
+                                },
+                                error: function (data) {
+                                    console.log('Error', data);
+                                    $('#form_submit').html('Simpan');
+                                }
+                            });
                         }
                     });
-
-                });
+                }
             });
+            // cek ukuran file yg diupload
+            $.validator.addMethod('filesize', function (value, element, param) {
+                    return this.optional(element) || (element.files[0].size <= param)
+                },
+                'Ukuran dokumen terlalu besar'); // notifikasi apabila file > 2mb
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
         });
 
-        $(".summernote-simple").summernote({
-            dialogsInBody: true,
-            minHeight: 150,
-            toolbar: [
-                ['style', ['bold', 'italic', 'underline', 'clear']],
-                ['font', ['strikethrough']],
-                ['para', ['paragraph']]
-            ]
-        });
+
 
     });
 
