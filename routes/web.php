@@ -18,6 +18,7 @@ use App\Http\Controllers\DetilSekolahController;
 
 Route::get('/login', [AuthController::class,'index'])->name('login')->middleware('guest');
 Route::post('/login', [AuthController::class,'authenticate'])->name('authenticate');
+Route::post('/logout', [AuthController::class,'logout'])->name('logout');
 Route::get('/', [HomeController::class, 'index']);
 Route::get('tes', function(){
     return view('admin.modal');
@@ -28,6 +29,5 @@ Route::middleware(['auth', 'role:sekolah'])->group(function () {
     Route::resource('/detilsekolah', DetilSekolahController::class);
 });
 Route::middleware(['auth', 'role:kpa|admin'])->group(function () {
-    Route::post('/logout', [AuthController::class,'logout']);
     Route::resource('sekolah', SekolahController::class);
 });

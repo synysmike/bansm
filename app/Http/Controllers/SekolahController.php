@@ -96,9 +96,9 @@ class SekolahController extends Controller
             $fileijop = '';           
         }
         if($request->masa_ijop!=null){
-            $fileijop = $validator['masa_ijop'];
+            $masaijop = $validator['masa_ijop'];
         }else{
-            $fileijop = '';           
+            $masaijop = '';           
         }
 
         $unit =
@@ -115,7 +115,7 @@ class SekolahController extends Controller
             'namapj' => $request->namapj,
             'no_ks' => $validator['hpks'],
             'file_ijop' =>$fileijop,
-            'masa_ijop' => $validator['masa_ijop'],
+            'masa_ijop' => $masaijop,
             'hppj' => $validator['hppj']
         ]);
 

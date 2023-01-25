@@ -46,31 +46,62 @@ class DetilSekolahController extends Controller
     public function store(Request $request)
     {        
         $alldata = $request->all();
+        // ddd($alldata);
         $id = $request->id;
         $validator = $request->validate([
             'kelurahan' => 'required',
             'kecamatan' => 'required',
             'alamat' => 'required',
             'kelas' => 'max:25',
+            'hpks' => 'numeric|digits_between:9,13',
+            'hppj' => 'numeric|digits_between:9,13',
             'keterangan' => 'max:250',
             'kondisi' => 'required',
-            'file_ijop' => 'file|mimes:pdf,PDF|max:2048',
-            'masa' => 'after:01/01/2019|before:01/01/2023',
-            
+            'ijop' => 'file|mimes:pdf,PDF|max:2048|nullable',
+            'masa_ijop' => 'after:01/01/2019|before:01/01/2023|nullable',
+
         ]);
-        $unit = Sekolah::updateOrCreate(
+        $npsn = $request->npsn;
+        // return $npsn;
+        if ($request->file('ijop')) {
+            $file = $request->file('ijop');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time() . "_" . $npsn . "." . $extension;
+            $validator['ijop'] = $filename;
+            $file->storeAs('ijop', $filename);            
+        }
+
+        
+        if($request->ijop!=null){
+            $fileijop = $validator['ijop'];
+        }else{
+            $fileijop = '';           
+        }
+        if($request->masa_ijop!=null){
+            $masaijop = $validator['masa_ijop'];
+        }else{
+            $masaijop = '';           
+        }
+
+        $unit =
+            Sekolah::updateOrCreate(
             ['id' => $id],
-            // $validator);
-            ['kelurahan' => $request->kelurahan,
-            'kecamatan' => $request->kecamatan,
-            'alamat' => $request->alamat,
-            'kelas' => $request->kelas,
-            'kondisi' => $request->kondisi,
-            'keterangan' => $request->keterangan,
+            [
+            'kelurahan' => $validator['kelurahan'],
+            'kecamatan' => $validator['kecamatan'],
+            'alamat' => $validator['alamat'],
+            'kelas' => $validator['kelas'],
+            'kondisi' => $validator['kondisi'],
+            'keterangan' => $validator['keterangan'],
             'namaks' => $request->namaks,
             'namapj' => $request->namapj,
-            'no_ks' => $request->hpks,
-            'hppj' => $request->hppj]);
+            'no_ks' => $validator['hpks'],
+            'file_ijop' =>$fileijop,
+            'masa_ijop' => $masaijop,
+            'hppj' => $validator['hppj']
+        ]);
+        // dd($unit);
+
         return response()->json($unit);
     }
 

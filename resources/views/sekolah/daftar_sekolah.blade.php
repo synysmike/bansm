@@ -59,6 +59,8 @@
                                         value=''>
                                     <input disabled id='npsn' type='text' class='form-control' placeholder='npsn'
                                         name='npsn' value=''>
+                                    <input id='npsnhd' type='hidden' class='form-control' placeholder='npsn'
+                                        name='npsnhd' value=''>
                                 </div>
                             </div>
                             <div class='form-group row mb-4'> <label
@@ -157,11 +159,8 @@
                                     for='kecamatan'>Kecamatan</label>
                                 <div class='col-sm-12 col-md-7'> <input id='kecamatan' type='text' class='form-control'
                                         placeholder='kecamatan' name='kecamatan' value=''>
-                                    @error('kecamatan')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                    @enderror
+                                        <div class="alert-danger" id="errkcmtn"></div>
+                                    
                                 </div>
                             </div>
                             <div class='form-group row mb-4'>
@@ -170,7 +169,8 @@
                                 </label>
                                 <div class='col-sm-12 col-md-7'> <input id='kelurahan' type='text' class='form-control'
                                         placeholder='kelurahan' name='kelurahan' value=''>
-                                </div>
+                                        <div class="alert-danger" id="errklrhn"></div>
+                                    </div>
                             </div>
                             <div class='form-group row mb-4'> <label
                                     class='col-form-label text-md-right col-12 col-md-3 col-lg-3' for='alamat'>
@@ -178,6 +178,7 @@
                                 </label>
                                 <div class='col-sm-12 col-md-7'> <input id='alamat' type='text' class='form-control'
                                         placeholder='alamat' name='alamat' value=''>
+                                        <div class="alert-danger" id="erralmt"></div>
                                 </div>
                             </div>
                             <div class='form-group row mb-4'>
@@ -187,11 +188,7 @@
                                 <div class='col-sm-12 col-md-7'>
                                     <input id='namaks' type='text' class='form-control'
                                         placeholder='Nama Kepala Sekolah' name='namaks' value=''>
-                                    @error('namaks')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                    @enderror
+                                        
                                 </div>
                             </div>
                             <div class='form-group row mb-4'> <label
@@ -201,11 +198,7 @@
                                 <div class='col-sm-12 col-md-7'>
                                     <input id='hpks' type='text' class='form-control' placeholder='No HP Kepala Sekolah'
                                         name='hpks' value=''>
-                                    @error('hpks')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                    @enderror
+                                        <div class="alert-danger" id="errhpks"></div>
                                 </div>
                             </div>
                             <div class='form-group row mb-4'> <label
@@ -224,7 +217,8 @@
                                     <div class='col-sm-12 col-md-7'>
                                         <input id='hppj' type='text' class='form-control'
                                             placeholder='No HP Penanggung Jawab Akreditasi' name='hppj' value=''>
-                                    </div>
+                                            <div class="alert-danger" id="errhppj"></div>
+                                        </div>
                                 </div>
                                 {{-- kasih if sekolah negeri disini --}}
                                 <div id="collapse1" class='form-group row mb-4'> <label
@@ -234,6 +228,7 @@
                                     <div class='col-sm-12 col-md-7'>
                                         <input id='ijop' type='file' class='form-control' placeholder='ijop' name='ijop'
                                             value=''>
+                                            <div class="alert-danger" id="errfile"></div>
                                     </div>
                                 </div>
                                 <div id="collapse2" class='form-group row mb-4'> <label class='col-form-label '
@@ -242,7 +237,8 @@
                                     <div class='col-sm-12 col-md-7'>
                                         <input id='masa_ijop' type='input' class='form-control datepicker'
                                             placeholder='masa_ijop' name='masa_ijop' value=''>
-                                    </div>
+                                            <div class="alert-danger" id="errmasa"></div>
+                                        </div>
                                 </div>
                                 <div class='form-group row mb-4'>
                                     <label class='col-form-label text-md-right col-12 col-md-3 col-lg-3'
@@ -259,6 +255,7 @@
                                             <label class="col-form-label " for="kondisi2">Sudah Tutup</label>
                                         </div>
                                     </div>
+                                    <div class="alert-danger" id="errkondisi"></div>
                                 </div>
                                 <div id="div-keterangan" class="form-group row mb-4">
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Keterangan
@@ -272,8 +269,22 @@
                                 <div id="field_bt" class='form-group row mb-4'> <label
                                         class='col-form-label text-md-right col-12 col-md-3 col-lg-3' for='kelas'>KELAS
                                         Terakhir (Khusus Sasaran BT)</label>
-                                    <div class='col-sm-12 col-md-7'> <input id='kelas' type='text' class='form-control'
-                                            placeholder='kelas' name='kelas' value=''>
+                                    <div class='col-sm-12 col-md-7'>
+                                        <select name="kelas" class="form-control row mb-4" id="kelas">
+                                            <option value="I">1</option>
+                                            <option value="II">2</option>
+                                            <option value="III">3</option>
+                                            <option value="IV">4</option>
+                                            <option value="V">5</option>
+                                            <option value="VI">6</option>
+                                            <option value="VII">7</option>
+                                            <option value="VIII">8</option>
+                                            <option value="IX">9</option>
+                                            <option value="X">10</option>
+                                            <option value="XI">11</option>
+                                            <option value="XII">12</option>
+                                        </select>
+                                            <div class="alert-danger" id="errkelas"></div>
                                     </div>
                                 </div>
                                 {{-- <div class='form-group row mb-4'> <label
@@ -367,6 +378,7 @@
                 $('#tittle').text(data.nama);
                 $('#no').val(data.no);
                 $('#id').val(data.id);
+                $('#npsnhd').val(data.npsn);
                 $('#npsn').val(data.npsn);
                 $('#nama_satuan_pendidikan').val(data.nama);
                 $('#jenjang1').val(data.jenjang1);
@@ -394,11 +406,13 @@
                 var status = data.status;
                 var peringkat = data.peringkat;
 
+
                 if (peringkat == "BT") {
                     $('#field_bt').show();
                 } else {
                     $('#field_bt').hide();
                 }
+
 
                 if (status == "NEGERI") {
                     $('#collapse1').hide();
@@ -406,6 +420,7 @@
                 } else {
                     $('#collapse1').show();
                     $('#collapse2').show();
+
 
                 }
                 var buka = document.getElementById('kondisi1');
@@ -415,9 +430,11 @@
                     tutup.checked = true
                     buka.checked = false
 
+
                 } else {
                     tutup.checked = false
                     buka.checked = true
+
 
                 }
                 if (tutup.checked) {
@@ -425,6 +442,7 @@
                 } else {
                     $('#div-keterangan').hide();
                 }
+
 
                 $('#kondisi1').click(function () {
                     $('#div-keterangan').hide();
@@ -462,7 +480,10 @@
                                 dataType: 'json',
                                 processData: false,
                                 contentType: false,
-                                success: function (data) {
+                                success: function (response) {
+                                    // console.log(response);
+
+
                                     $('#form-tambah-edit').trigger(
                                         "reset");
                                     $('#modal-show').modal(
@@ -478,8 +499,17 @@
                                     oTable.fnDraw(false);
                                 },
                                 error: function (data) {
-                                    console.log('Error', data);
-                                    $('#form_submit').html('Simpan');
+                                    console.log('Error',data);
+                                    $('#errkcmtn').text(data.responseJSON.errors.kecamatan);
+                                    $('#errhpks').text(data.responseJSON.errors.hpks);
+                                    $('#errhppj').text(data.responseJSON.errors.hppj);
+                                    $('#erralmt').text(data.responseJSON.errors.alamat);
+                                    $('#errklrhn').text(data.responseJSON.errors.kelurahan);
+                                    $('#errfile').text(data.responseJSON.errors.ijop);
+                                    $('#errkondisi').text(data.responseJSON.errors.kondisi);
+                                    $('#errmasa').text(data.responseJSON.errors.ijop_masa);
+                                    $('#errkelas').text(data.responseJSON.errors.ijop_kelas);
+                                    $('#form_submit').html('Gagal Simpan, mohon diperbaiki lalu klik saya lagi');
                                 }
                             });
                         }

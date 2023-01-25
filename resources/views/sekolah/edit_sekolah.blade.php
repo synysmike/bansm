@@ -97,103 +97,103 @@
             {{-- kurang form nama+nohp kepsek nama+nohp penanggung jawab akreditasi  --}}
         </div>
         <div class="col-6">
-            <div class='form-group row mb-4'> <label class='col-form-label text-md-right col-12 col-md-3 col-lg-3'
-                    for='kab_kota'>Kab./Kota</label>
-                <div class='col-sm-12 col-md-7'> <input disabled id='kab_kota' type='text' class='form-control'
-                        placeholder='kab_kota' name='kab_kota' value='{{ $unit->kab_kota }}'>
+            <div class='form-group row mb-4'> <label
+                class='col-form-label text-md-right col-12 col-md-3 col-lg-3'
+                for='kab_kota'>Kab./Kota</label>
+            <div class='col-sm-12 col-md-7'> <input disabled id='kab_kota' type='text'
+                    class='form-control' placeholder='kab_kota' name='kab_kota' value='{{ $unit->kab_kota }}'>
+            </div>
+        </div>
+        <div class='form-group row mb-4'> <label
+                class='col-form-label text-md-right col-12 col-md-3 col-lg-3'
+                for='kecamatan'>Kecamatan</label>
+            <div class='col-sm-12 col-md-7'> <input id='kecamatan' type='text' class='form-control'
+                    placeholder='kecamatan' name='kecamatan' value='{{ $unit->kecamatan }}'>
+                    <div class="alert-danger" id="errkcmtn"></div>
+                
+            </div>
+        </div>
+        <div class='form-group row mb-4'>
+            <label class='col-form-label text-md-right col-12 col-md-3 col-lg-3' for='kelurahan'>
+                Kelurahan
+            </label>
+            <div class='col-sm-12 col-md-7'> <input id='kelurahan' type='text' class='form-control'
+                    placeholder='kelurahan' name='kelurahan' value='{{ $unit->kelurahan }}'>
+                    <div class="alert-danger" id="errklrhn"></div>
+                </div>
+        </div>
+        <div class='form-group row mb-4'> <label
+                class='col-form-label text-md-right col-12 col-md-3 col-lg-3' for='alamat'>
+                Alamat
+            </label>
+            <div class='col-sm-12 col-md-7'> <input id='alamat' type='text' class='form-control'
+                    placeholder='alamat' name='alamat' value='{{ $unit->alamat }}'>
+                    <div class="alert-danger" id="erralmt"></div>
+            </div>
+        </div>
+        <div class='form-group row mb-4'>
+            <label class='col-form-label text-md-right col-12 col-md-3 col-lg-3' for='namaks'>
+                Nama Kepala Sekolah
+            </label>
+            <div class='col-sm-12 col-md-7'>
+                <input id='namaks' type='text' class='form-control'
+                    placeholder='Nama Kepala Sekolah' name='namaks' value='{{ $unit->namaks }}'>
+                    
+            </div>
+        </div>
+        <div class='form-group row mb-4'> <label
+                class='col-form-label text-md-right col-12 col-md-3 col-lg-3' for='hpks'>
+                No HP Kepala Sekolah
+            </label>
+            <div class='col-sm-12 col-md-7'>
+                <input id='hpks' type='text' class='form-control' placeholder='No HP Kepala Sekolah'
+                    name='hpks' value='{{ $unit->no_ks }}'>
+                    <div class="alert-danger" id="errhpks"></div>
+            </div>
+        </div>
+        <div class='form-group row mb-4'> <label
+                class='col-form-label text-md-right col-12 col-md-3 col-lg-3' for='namapj'>
+                Nama Penanggung Jawab Akreditasi
+            </label>
+            <div class='col-sm-12 col-md-7'>
+                <input id='namapj' type=' text' class='form-control'
+                    placeholder='Nama Penanggung Jawab Akreditasi' name='namapj' value='{{ $unit->namapj }}'>
                 </div>
             </div>
-            <div class='form-group row mb-4'> <label class='col-form-label text-md-right col-12 col-md-3 col-lg-3'
-                    for='kecamatan'>Kecamatan</label>
-                <div class='col-sm-12 col-md-7'> <input id='kecamatan' type='text' class='form-control'
-                        placeholder='kecamatan' name='kecamatan' value='{{ $unit->kecamatan }}'>
-                    @error('kecamatan')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                    @enderror
-                </div>
-            </div>
-            <div class='form-group row mb-4'>
-                <label class='col-form-label text-md-right col-12 col-md-3 col-lg-3' for='kelurahan'>
-                    Kelurahan
-                </label>
-                <div class='col-sm-12 col-md-7'> <input id='kelurahan' type='text' class='form-control'
-                        placeholder='kelurahan' name='kelurahan' value='{{ $unit->kelurahan }}'>
-                </div>
-            </div>
-            <div class='form-group row mb-4'> <label class='col-form-label text-md-right col-12 col-md-3 col-lg-3'
-                    for='alamat'>
-                    Alamat
-                </label>
-                <div class='col-sm-12 col-md-7'> <input id='alamat' type='text' class='form-control'
-                        placeholder='alamat' name='alamat' value='{{ $unit->alamat }}'>
-                </div>
-            </div>
-            <div class='form-group row mb-4'>
-                <label class='col-form-label text-md-right col-12 col-md-3 col-lg-3' for='namaks'>
-                    Nama Kepala Sekolah
-                </label>
-                <div class='col-sm-12 col-md-7'>
-                    <input id='namaks' type='text' class='form-control' placeholder='Nama Kepala Sekolah' name='namaks'
-                        value='{{ $unit->namaks }}'>
-                    @error('namaks')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                    @enderror
-                </div>
-            </div>
-            <div class='form-group row mb-4'> <label class='col-form-label text-md-right col-12 col-md-3 col-lg-3'
-                    for='hpks'>
-                    No HP Kepala Sekolah
-                </label>
-                <div class='col-sm-12 col-md-7'>
-                    <input id='hpks' type='text' class='form-control' placeholder='No HP Kepala Sekolah' name='hpks'
-                        value='{{ $unit->no_ks }}'>
-                    @error('hpks')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                    @enderror
-                </div>
-            </div>
-            <div class='form-group row mb-4'> <label class='col-form-label text-md-right col-12 col-md-3 col-lg-3'
-                    for='namapj'>
-                    Nama Penanggung Jawab Akreditasi
-                </label>
-                <div class='col-sm-12 col-md-7'>
-                    <input id='namapj' type=' text' class='form-control' placeholder='Nama Penanggung Jawab Akreditasi'
-                        name='namapj' value='{{ $unit->namapj }}'>
-                </div>
-            </div>
-            <div class=' form-group row mb-4'> <label class='col-form-label text-md-right col-12 col-md-3 col-lg-3'
-                    for='hppj'>
+            <div class=' form-group row mb-4'> <label
+                    class='col-form-label text-md-right col-12 col-md-3 col-lg-3' for='hppj'>
                     No HP Penanggung Jawab Akreditasi
                 </label>
                 <div class='col-sm-12 col-md-7'>
-                    <input id='hppj' type='text' class='form-control' placeholder='No HP Penanggung Jawab Akreditasi'
-                        name='hppj' value='{{ $unit->hppj }}'>
-                </div>
+                    <input id='hppj' type='text' class='form-control'
+                        placeholder='No HP Penanggung Jawab Akreditasi' name='hppj' value='{{ $unit->hppj}}'>
+                        <div class="alert-danger" id="errhppj"></div>
+                    </div>
             </div>
             {{-- kasih if sekolah negeri disini --}}
             <div id="collapse1" class='form-group row mb-4'> <label
-                    class='col-form-label text-md-right col-12 col-md-3 col-lg-3' for='lokasi'>Unggah
+                    class='col-form-label text-md-right col-12 col-md-3 col-lg-3'
+                    for='lokasi'>Unggah
                     Ijop</label>
                 <div class='col-sm-12 col-md-7'>
-                    <input id='ijop' type='file' class='form-control' placeholder='ijop' name='ijop' value=''>
+                <p> {{ $unit->file_ijop !== null ? 'Sudah Upload' }}</p>
+                    <input id='ijop' type='file' class='form-control' placeholder='ijop' name='ijop'
+                        value=''>
+                        <div class="alert-danger" id="errfile"></div>
                 </div>
             </div>
-            <div id="collapse2" class='form-group row mb-4'> <label class='col-form-label ' for='lokasi'>Masa
-                    Berakhir Ijop</label>
+            <div id="collapse2" class='form-group row mb-4'> <label class='col-form-label '
+                    for='lokasi'>Masa
+                    Berlaku Ijop</label>
                 <div class='col-sm-12 col-md-7'>
-                    <input id='masa_ijop' type='input' class='form-control datepicker' placeholder='masa_ijop'
-                        name='masa_ijop' value='{{ $unit->masa }}'>
-                </div>
+                    <input id='masa_ijop' type='input' class='form-control datepicker'
+                        placeholder='masa_ijop' name='masa_ijop' value='{{ $unit->masa_ijop }}'>
+                        <div class="alert-danger" id="errmasa"></div>
+                    </div>
             </div>
             <div class='form-group row mb-4'>
-                <label class='col-form-label text-md-right col-12 col-md-3 col-lg-3' for='status'>Kondisi
-                    Lembaga</label>
+                <label class='col-form-label text-md-right col-12 col-md-3 col-lg-3'
+                    for='status'>Kondisi Lembaga</label>
                 <div class='col-sm-12 col-md-7'>
                     <div class="col-md12">
                         <input checked="" type="radio" id="kondisi1" value="1" name="kondisi"
@@ -206,6 +206,7 @@
                         <label class="col-form-label " for="kondisi2">Sudah Tutup</label>
                     </div>
                 </div>
+                <div class="alert-danger" id="errkondisi"></div>
             </div>
             <div id="div-keterangan" class="form-group row mb-4">
                 <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Keterangan
@@ -239,13 +240,7 @@
                     </select>
                 </div>
             </div>
-            {{-- <div class='form-group row mb-4'> <label
-                                    class='col-form-label text-md-right col-12 col-md-3 col-lg-3' for='kuota_bt'>KUOTA
-                                    BT</label>
-                                <div class='col-sm-12 col-md-7'> <input id='kuota_bt' type='text' class='form-control'
-                                        placeholder='kuota_bt' name='kuota_bt' value=''>
-                                </div>
-                            </div> --}}
+            
             {{-- //if bt { dikasih input kelas berapa } --}}
             <button id="form_submit" type="submit" class="btn btn-primary">Simpan</button>
         </div>
@@ -310,6 +305,11 @@
             if (status == "NEGERI") {
                 $('#collapse1').hide();
                 $('#collapse2').hide();
+                document.getElementById('masa_ijop').disabled = true;
+                document.getElementById('ijop').disabled = true;
+                // $('#masa_ijop').setAttribute('disabled', '');
+                // $('#ijop').setAttribute('disabled', '');
+
             } else {
                 $('#collapse1').show();
                 $('#collapse2').show();
@@ -367,8 +367,7 @@
                                 dataType: 'json',
                                 processData: false,
                                 contentType: false,
-                                success: function (data) {
-                                    
+                                success: function (data) {                                    
                                     $('#form-tambah-edit').trigger(
                                         "reset");
                                     // $('#modal-show').modal(
@@ -384,8 +383,17 @@
                                     // oTable.fnDraw(false);
                                 },
                                 error: function (data) {
-                                    console.log('Error', data);
-                                    $('#form_submit').html('Simpan');
+                                    console.log('Error',data);
+                                    $('#errkcmtn').text(data.responseJSON.errors.kecamatan);
+                                    $('#errhpks').text(data.responseJSON.errors.hpks);
+                                    $('#errhppj').text(data.responseJSON.errors.hppj);
+                                    $('#erralmt').text(data.responseJSON.errors.alamat);
+                                    $('#errklrhn').text(data.responseJSON.errors.kelurahan);
+                                    $('#errfile').text(data.responseJSON.errors.ijop);
+                                    $('#errkondisi').text(data.responseJSON.errors.kondisi);
+                                    $('#errmasa').text(data.responseJSON.errors.ijop_masa);
+                                    $('#errkelas').text(data.responseJSON.errors.ijop_kelas);
+                                    $('#form_submit').html('Gagal Simpan, mohon diperbaiki lalu klik saya lagi');
                                 }
                             });
                         }
