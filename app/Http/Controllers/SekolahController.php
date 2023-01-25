@@ -22,6 +22,7 @@ class SekolahController extends Controller
     public function index(Request $request)
     {
         //
+
         $user = Auth::user();
         $tittle = $user->nama;
         $data = Sekolah::all();
@@ -62,7 +63,7 @@ class SekolahController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {        
+    {
         $alldata = $request->all();
         $id = $request->id;
         $validator = $request->validate([
@@ -70,25 +71,54 @@ class SekolahController extends Controller
             'kecamatan' => 'required',
             'alamat' => 'required',
             'kelas' => 'max:25',
+            'hpks' => 'numeric|digits_between:9,13',
+            'hppj' => 'numeric|digits_between:9,13',
             'keterangan' => 'max:250',
             'kondisi' => 'required',
-            'file_ijop' => 'file|mimes:pdf,PDF|max:2048',
-            'masa' => 'after:01/01/2019|before:01/01/2023',
-            
+            'ijop' => 'file|mimes:pdf,PDF|max:2048|nullable',
+            'masa_ijop' => 'after:01/01/2019|before:01/01/2023|nullable',
+
         ]);
-        $unit = Sekolah::updateOrCreate(
+        $npsn = $request->npsn;
+        // return $npsn;
+        if ($request->file('ijop')) {
+            $file = $request->file('ijop');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time() . "_" . $npsn . "." . $extension;
+            $validator['ijop'] = $filename;
+            $file->storeAs('ijop', $filename);            
+        }
+
+        
+        if($request->ijop!=null){
+            $fileijop = $validator['ijop'];
+        }else{
+            $fileijop = '';           
+        }
+        if($request->masa_ijop!=null){
+            $fileijop = $validator['masa_ijop'];
+        }else{
+            $fileijop = '';           
+        }
+
+        $unit =
+            Sekolah::updateOrCreate(
             ['id' => $id],
-            // $validator);
-            ['kelurahan' => $request->kelurahan,
-            'kecamatan' => $request->kecamatan,
-            'alamat' => $request->alamat,
-            'kelas' => $request->kelas,
-            'kondisi' => $request->kondisi,
-            'keterangan' => $request->keterangan,
+            [
+            'kelurahan' => $validator['kelurahan'],
+            'kecamatan' => $validator['kecamatan'],
+            'alamat' => $validator['alamat'],
+            'kelas' => $validator['kelas'],
+            'kondisi' => $validator['kondisi'],
+            'keterangan' => $validator['keterangan'],
             'namaks' => $request->namaks,
             'namapj' => $request->namapj,
-            'no_ks' => $request->hpks,
-            'hppj' => $request->hppj]);
+            'no_ks' => $validator['hpks'],
+            'file_ijop' =>$fileijop,
+            'masa_ijop' => $validator['masa_ijop'],
+            'hppj' => $validator['hppj']
+        ]);
+
         return response()->json($unit);
     }
 
@@ -98,10 +128,13 @@ class SekolahController extends Controller
      * @param  \App\Models\sekolah  $sekolah
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request)
+    public function show($id)
     {
         //
-        
+        $decid = Crypt::decrypt($id);        // dd($decid);
+        $where = array('id' => $decid);
+        $unit = Sekolah::where($where)->first();
+        return response()->json($unit);
     }
 
     /**
@@ -148,12 +181,12 @@ class SekolahController extends Controller
 
         $where = array('id' => $decid);
         $npsn = $where['npsn'];
-        if ($request->file('file_ijop')){
+        if ($request->file('file_ijop')) {
             $file = $request->file('ijop');
             $extension = $file->getClientOriginalExtension();
-            $filename = time()."_".$npsn.$extension;
+            $filename = time() . "_" . $npsn . $extension;
             $validator['file_ijop'] = $filename;
-            $file->store('ijop/'.$filename);
+            $file->store('ijop/' . $filename);
         }
         Sekolah::upsert($validator);
         // if ($validator) {
@@ -163,20 +196,20 @@ class SekolahController extends Controller
         //     ]);
         // } else {
         //     $where = array('id' => $decid);
-            // $where->kelurahan = $request->input('kelurahan');
-            // $where->kecamatan = $request->input('kecamatan');
-            // $where->alamat = $request->input('alamat');
-            // $where->kelas = $request->input('kelas');
-            // $where->keterangan = $request->input('keterangan');
-            // $where->kondisi = $request->input('kondisi');
-            // $where->masa = $request->input('masa');
-            // $where->namaks = $request->input('namaks');
-            // $where->namapj = $request->input('namapj');
-            // $where->hpks = $request->input('hpks');
-            // $where->hppj = $request->input('hppj');
-            
+        // $where->kelurahan = $request->input('kelurahan');
+        // $where->kecamatan = $request->input('kecamatan');
+        // $where->alamat = $request->input('alamat');
+        // $where->kelas = $request->input('kelas');
+        // $where->keterangan = $request->input('keterangan');
+        // $where->kondisi = $request->input('kondisi');
+        // $where->masa = $request->input('masa');
+        // $where->namaks = $request->input('namaks');
+        // $where->namapj = $request->input('namapj');
+        // $where->hpks = $request->input('hpks');
+        // $where->hppj = $request->input('hppj');
+
         // }
-        
+
     }
 
     /**
