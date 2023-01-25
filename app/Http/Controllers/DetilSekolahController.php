@@ -58,7 +58,7 @@ class DetilSekolahController extends Controller
             'keterangan' => 'max:250',
             'kondisi' => 'required',
             'ijop' => 'file|mimes:pdf,PDF|max:2048|nullable',
-            'masa_ijop' => 'after:01/01/2019|before:01/01/2023|nullable',
+            'masa_ijop' => 'after:01/01/2019|before:01/01/2027|nullable',
 
         ]);
         $npsn = $request->npsn;
