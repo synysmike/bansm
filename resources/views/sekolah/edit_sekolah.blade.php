@@ -176,7 +176,7 @@
                     for='lokasi'>Unggah
                     Ijop</label>
                 <div class='col-sm-12 col-md-7'>
-                <p> {{ $unit->file_ijop !== null ? 'Sudah Upload' }}</p>
+                {{-- <p> {{ $unit->file_ijop !== '' ? 'Sudah Upload' }}</p> --}}
                     <input id='ijop' type='file' class='form-control' placeholder='ijop' name='ijop'
                         value=''>
                         <div class="alert-danger" id="errfile"></div>
@@ -391,8 +391,8 @@
                                     $('#errklrhn').text(data.responseJSON.errors.kelurahan);
                                     $('#errfile').text(data.responseJSON.errors.ijop);
                                     $('#errkondisi').text(data.responseJSON.errors.kondisi);
-                                    $('#errmasa').text(data.responseJSON.errors.ijop_masa);
-                                    $('#errkelas').text(data.responseJSON.errors.ijop_kelas);
+                                    $('#errmasa').text(data.responseJSON.errors.masa_ijop);
+                                    $('#errkelas').text(data.responseJSON.errors.kelas);
                                     $('#form_submit').html('Gagal Simpan, mohon diperbaiki lalu klik saya lagi');
                                 }
                             });
