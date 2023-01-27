@@ -18,8 +18,7 @@ class HomeController extends Controller
     {
         //
         // $nama = "Halaman Utama";
-        return view('admin.layout.wrapper'
-        );
+        return redirect()->route('login');
     }
 
     /**

@@ -482,8 +482,6 @@
                                 contentType: false,
                                 success: function (response) {
                                     // console.log(response);
-
-
                                     $('#form-tambah-edit').trigger(
                                         "reset");
                                     $('#modal-show').modal(
