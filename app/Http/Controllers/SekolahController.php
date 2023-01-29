@@ -79,7 +79,7 @@ class SekolahController extends Controller
             'hppj' => 'numeric|digits_between:9,13',
             'keterangan' => 'max:250',
             'kondisi' => 'required',
-            'ijop' => 'file|mimes:pdf,PDF|max:2048|nullable',
+            'ijop' => 'file|mimes:pdf,PDF|max:512|nullable',
             'masa_ijop' => 'after:01/01/2019|before:01/01/2023|nullable',
 
         ]);

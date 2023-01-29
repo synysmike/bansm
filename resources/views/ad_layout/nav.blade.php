@@ -21,7 +21,8 @@
             </a>
             <div class="dropdown-menu dropdown-menu-right">
                 <div class="dropdown-divider"></div>
-                <p class="dropdown-item">NPSN : {{ auth()->user()->username }}</p>
+                <p class="dropdown-item">username : {{ auth()->user()->username }}</p>
+                <p class="dropdown-item">Kab./Kota : {{ auth()->user()->kab_kota }}</p>
                     <form action="/logout"  method="post">                        
                         @csrf
                         <button type="submit" class="dropdown-item has-icon text-danger"><i class="fas fa-sign-out-alt"></i>Logout</button>

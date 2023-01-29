@@ -75,9 +75,9 @@ class KpaController extends Controller
             'jabatan'=>'kpa'
 
         ];
-            Kpa::updateOrCreate($unit);
-            $user = User::updateOrCreate($useracc);
-            $user->assignRole('kpa');
+        $user = User::updateOrCreate($useracc);
+        $user->assignRole('kpa');
+        Kpa::updateOrCreate($unit);
             //     // 'document' => $request->file('document')->store('dokumen/'.$parent->tahun.'/'.$parent->satker->namasatker.'/'.$parent->risk_code.'/tindakan-penanganan', 'public'),
                 //
             

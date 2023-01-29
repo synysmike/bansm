@@ -11,7 +11,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>{{ $tittle }}</h4>
+                        <h4>ketik jenjang yang anda ingin tampilkan di kolom pencarian untuk menampilkan daftar jenjang yang akan anda edit</h4>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -345,8 +345,8 @@
                     name: 'nama'
                 },
                 {
-                    data: 'jenjang1',
-                    name: 'jenjang1'
+                    data: 'jenjang2',
+                    name: 'jenjang2'
                 },
                 {
                     data: 'kab_kota',
