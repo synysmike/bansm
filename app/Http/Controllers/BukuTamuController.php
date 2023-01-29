@@ -87,6 +87,7 @@ class BukuTamuController extends Controller
             'nohp' => $validator['hp'],
             'asal' => $validator['asal'],
             'keperluan' => $validator['kpr'],
+            'alamat' => $request->alamat,
             'ttd' => $file
 
             // 'document' => $request->file('document')->store('dokumen/'.$parent->tahun.'/'.$parent->satker->namasatker.'/'.$parent->risk_code.'/tindakan-penanganan', 'public'),

@@ -1,5 +1,6 @@
 <?php
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\KpaController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SekolahController;
@@ -26,8 +27,11 @@ use App\Http\Controllers\DetilSekolahController;
 
 
     Route::get('/', [HomeController::class, 'index']);
+    Route::get('/registrasi-kpa', [KpaController::class, 'index']);
+    Route::resource('kpa', KpaController::class);
     Route::resource('/bukutamu', BukuTamuController::class);
     Route::resource('/login', AuthController::class);
+    Route::post('/login', [AuthController::class,'authenticate'])->name('authenticate');  
     Route::post('/logout',[ AuthController::class,'logout']);  
 
 Route::middleware(['auth', 'role:sekolah'])->group(function () {

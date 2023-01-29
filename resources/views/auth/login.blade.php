@@ -1,4 +1,12 @@
 @extends('auth.wrapper')
+@push('tittle')
+<title>Login &mdash; BAN-S/M JATIM</title>
+<meta property="og:title" content="Login" />
+{{-- <meta property="og:type" content="video.movie" /> --}}
+<meta property="og:url" content="{{url()->current()}}" />
+<meta property="og:image" content="/ban.png" />
+<link rel="icon" type="image/x-icon" href="/ban.png">
+@endpush
 @section('form')
 <section class="section">
     <div class="d-flex align-items-stretch flex-wrap">

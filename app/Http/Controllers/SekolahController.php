@@ -25,7 +25,11 @@ class SekolahController extends Controller
 
         $user = Auth::user();
         $tittle = $user->nama;
-        $data = Sekolah::all();
+        $kabkota = $user->kab_kota;
+        // dd($kabkota);
+
+        $data = Sekolah::where('kab_kota',$kabkota)->get();
+        // dd($data);
         // return $data;
         if ($request->ajax()) {
             return DataTables::of($data)

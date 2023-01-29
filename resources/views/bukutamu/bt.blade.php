@@ -1,6 +1,14 @@
 @extends('auth.wrapper')
+@push('tittle')
+<title>Bukutamu &mdash; BAN-S/M JATIM</title>
+<meta property="og:title" content="Bukutamu" />
+{{-- <meta property="og:type" content="video.movie" /> --}}
+<meta property="og:url" content="{{url()->current()}}" />
+<meta property="og:image" content="/ban.png" />
+<link rel="icon" type="image/x-icon" href="/ban.png">
+@endpush
 @push('cssform-custom')
-<link rel="stylesheet" href="admin_theme/modules/prism/prism.css">
+    <link rel="stylesheet" href="{{ asset('admin_theme/modules/prism/prism.css') }}">
     <style>
         #canvasDiv {
             position: relative;
@@ -15,28 +23,28 @@
                 <div class="modal-header">
 
                 </div>
-                    <div class="modal-body">
-                        <div class="table-responsive">
-                            <table class="table-striped table" id="table-1">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center"> No. </th>
-                                        <th class="text-center"> Nama </th>
-                                        <th class="text-center"> HP </th>
-                                        <th class="text-center"> Asal </th>
-                                        <th class="text-center"> Keperluan </th>
-                                        <th class="text-center"> TTD </th>                                        
-                                    </tr>
-                                </thead>
-                                <tbody> 
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table class="table-striped table" id="table-1">
+                            <thead>
+                                <tr>
+                                    <th class="text-center"> No. </th>
+                                    <th class="text-center"> Nama </th>
+                                    <th class="text-center"> HP </th>
+                                    <th class="text-center"> Asal </th>
+                                    <th class="text-center"> Keperluan </th>
+                                    <th class="text-center"> TTD </th>
+                                </tr>
+                            </thead>
+                            <tbody>
 
-                                </tbody>
-                            </table>
-                        </div>
+                            </tbody>
+                        </table>
                     </div>
-                        <div class="modal-footer bg-whitesmoke br">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        </div>
+                </div>
+                <div class="modal-footer bg-whitesmoke br">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>
@@ -48,13 +56,13 @@
         <div class="d-flex align-items-stretch flex-wrap">
             <div class="col-lg-4 col-md-6 col-12 order-lg-1 min-vh-100 order-2 bg-white">
                 <div class="m-3 p-4">
-                    <img src="/ban.png" alt="logo" width="80" class="shadow-light rounded-circle mb-5 mt-2">
+                    <img src="{{ asset('/ban.png') }}" alt="logo" width="80" class="shadow-light rounded-circle mb-5 mt-2">
                     <h4 class="text-dark font-weight-normal">Selamat Datang Di <span class="font-weight-bold">BAN-S/M
                             Provinsi
                             Jawa Timur</span>
                     </h4>
                     <p class="text-muted"></p>
-                    <button  class="btn btn-primary trigger--fire-modal-2" id="modal-2">lihat pengunjung</button>
+                    <button class="btn btn-primary trigger--fire-modal-2" id="modal-2">lihat pengunjung</button>
                     <form id="id-form" class="needs-validation" novalidate="" enctype="multipart/form-data">
                         {{-- @csrf --}}
                         <div class="form-group">
@@ -66,6 +74,7 @@
                                 value="" required autofocus>
                         </div>
                         <div id="errnama" class="alert-danger"></div>
+                        
                         <div class="form-group">
                             <label for="username">Nomer HP</label>
                             <div class="invalid-feedback">
@@ -84,6 +93,15 @@
                             <input id="asal" type="text" class="form-control" name="asal" tabindex="1"
                                 value="" required
                                 placeholder="Masukan Asal ( Contoh : Asesor/Nama Sekolah/Dinas/Kemenag)">
+                        </div>
+                        <div class="form-group">
+                            <label for="username">Alamat</label>
+                            <div class="invalid-feedback">
+                                Mohon Mengisi Asal
+                            </div>
+                            <input id="alamat" type="text" class="form-control" name="alamat" tabindex="1"
+                                value="" required
+                                >
                         </div>
                         <div id="errasal" class="alert-danger"></div>
                         <div class="form-group">
@@ -123,10 +141,10 @@
 
 
 @push('jsform-custom')
-
-    <script src="admin_theme/library/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="admin_theme/library/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script src="{{ asset('admin_theme/library/sweetalert/dist/sweetalert.min.js') }}"></script>
     
+    <script src="{{ asset('admin_theme/library/datatables/media/js/jquery.dataTables.min.js') }}"></script>
+
     {{-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
     integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script> --}}
     {{-- <script src="admin_theme/modules/prism/prism.js"></script> --}}
@@ -134,67 +152,67 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"
         integrity="sha512-0QDLUJ0ILnknsQdYYjG7v2j8wERkKufvjBNmng/EdR/s/SE7X8cQ9y0+wMzuQT0lfXQ/NhG+zhmHNOWTUS3kMA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
     <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/additional-methods.js"></script>
 
 
 
     <script>
         // for limit number char on phone number
+        
+
+
+
         $('number#title').attr('maxLength', '8').keypress(limitMe);
+
         function limitMe(e) {
             if (e.keyCode == 8) {
                 return true;
             }
             return this.value.length < $(this).attr("maxLength");
         }
-        // for background
-        $("[data-background]").each(function() {
-            var me = $(this);
-            me.css({
-                backgroundImage: 'url(' + me.data('background') + ')'
-            });
-        });
         
-        
-        $('#modal-2').click(function() {            
+
+
+        $('#modal-2').click(function() {
             $("#modal-show").modal('show');
             var table = $('#table-1').DataTable({
-            processing: true,
-            serverSide: true, //aktifkan server-side 
-            ajax: {
-                url: "/bukutamu", // ambil data
-                type: 'GET'
-            },
-            columns: [{
-                    data: 'DT_RowIndex',
-                    name: 'DT_RowIndex'
+                processing: true,
+                serverSide: true, //aktifkan server-side 
+                ajax: {
+                    url: "/bukutamu", // ambil data
+                    type: 'GET'
                 },
-                {
-                    data: 'nama',
-                    name: 'nama'
-                },
-                {
-                    data: 'nohp',
-                    name: 'nohp'
-                },
-                {
-                    data: 'asal',
-                    name: 'asal'
-                },
-                {
-                    data: 'keperluan',
-                    name: 'keperluan'
-                },
-                {
-                    data: 'ttd',
-                    name: 'ttd'
-                }
-                
-            ],
+                columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex'
+                    },
+                    {
+                        data: 'nama',
+                        name: 'nama'
+                    },
+                    {
+                        data: 'nohp',
+                        name: 'nohp'
+                    },
+                    {
+                        data: 'asal',
+                        name: 'asal'
+                    },
+                    {
+                        data: 'keperluan',
+                        name: 'keperluan'
+                    },
+                    {
+                        data: 'ttd',
+                        name: 'ttd'
+                    }
+
+                ],
+            });
         });
-        });
-        
-        
+
+
         $(document).on('click', '#btn-save', function(e) {
             e.preventDefault();
             var mycanvas = document.getElementById('canvas');
