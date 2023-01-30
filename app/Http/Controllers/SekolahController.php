@@ -38,11 +38,60 @@ class SekolahController extends Controller
                     $url = Crypt::encrypt($data->id);
                     return '<a href="javascript:void(0)" data-id="' . $url . '" class="btn btn-info show-btn"> Edit</a>';
                 })
-                ->rawColumns(['aksi'])
+                ->addColumn('kondisi', function ($data) {
+                    $cek = $data->updated_at;
+                    if($cek !== null){
+                        return '<span class="badge badge-success">Sudah di edit</span>';
+                    }else{
+                        return '<span class="badge badge-info">Belum di edit</span>';
+                    }
+                })        
+                ->rawColumns(['aksi','kondisi'])        
+                // ->rawColumns([])
                 ->make(true);
         }
         return view(
             'sekolah.daftar_sekolah',
+            compact('tittle')
+        );
+    }
+    public function bmps(Request $request)
+    {
+        //
+
+        $user = Auth::user();
+        $tittle = $user->nama;
+        $kabkota = $user->kab_kota;
+        $status = 'swasta';
+        // dd($kabkota);
+
+        // $data = Sekolah::where('kab_kota',$kabkota)
+        // ->where('status','swasta')
+        // ->get();
+        $data = Sekolah::latest()->where('status',$status)->get();
+        // ddd($data);
+        // return $data;
+        if ($request->ajax()) {
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('aksi', function ($data) {
+                    $url = Crypt::encrypt($data->id);
+                    return '<a href="javascript:void(0)" data-id="' . $url . '" class="btn btn-info show-btn"> Edit</a>';
+                })
+                ->addColumn('kondisi', function ($data) {
+                    $cek = $data->updated_at;
+                    if($cek !== null){
+                        return '<span class="badge badge-success">Sudah di edit</span>';
+                    }else{
+                        return '<span class="badge badge-info">Belum di edit</span>';
+                    }
+                })        
+                ->rawColumns(['aksi','kondisi'])        
+                // ->rawColumns([])
+                ->make(true);
+        }
+        return view(
+            'sekolah.bmps_daftar_sekolah',
             compact('tittle')
         );
     }
@@ -80,7 +129,7 @@ class SekolahController extends Controller
             'keterangan' => 'max:250',
             'kondisi' => 'required',
             'ijop' => 'file|mimes:pdf,PDF|max:512|nullable',
-            'masa_ijop' => 'after:01/01/2019|before:01/01/2023|nullable',
+            'masa_ijop' => 'after:01/01/2019|before:01/01/2027|nullable',
 
         ]);
         $npsn = $request->npsn;

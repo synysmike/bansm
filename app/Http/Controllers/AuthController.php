@@ -8,13 +8,21 @@ use Session;
 class AuthController extends Controller
 {
     //
+    
     public function index()
     {
-        if (Auth::check()) {
-            return redirect('/sekolah');
-        }else{
+        // $user = Auth::user();
+        // if ($user->jabatan == 'kpa') {
+        //     return redirect('/sekolah');
+        // }elseif ($user->jabatan  == 'lembaga') {
+        //     return redirect('/detilsekolah');
+        // }    elseif ($user->jabatan  == 'bmps') {
+        //     return redirect('/bmps');
+        // }       
+
+        // else{
             return view('auth.login');
-        }
+        // }
     }
     public function authenticate(Request $request){
         $request->validate([
@@ -30,6 +38,9 @@ class AuthController extends Controller
             }elseif($user->jabatan == 'lembaga'){
                 $request->session()->regenerate();
                 return redirect()->intended('/detilsekolah');
+            }elseif($user->jabatan == 'bmps'){
+                $request->session()->regenerate();
+                return redirect()->intended('/bmps');
             }
         }
         return back()->with('loginError','Login Gagal');

@@ -20,6 +20,8 @@
                                     class='col-form-label text-md-right col-12 col-md-3 col-lg-3'
                                     for='npsn'>NPSN</label>
                                 <div class='col-sm-12 col-md-7'>
+                                    <input id='id' type='hidden' class='form-control' placeholder='npsn'
+                                        name='id' value='{{ $unit->id }}'>
                                     <input id='npsn' type='hidden' class='form-control' placeholder='npsn'
                                         name='npsn' value='{{ $unit->npsn }}'>
                                     <input disabled id='npsn' type='text' class='form-control' placeholder='npsn'
@@ -195,6 +197,18 @@
                                     <div class="alert-danger" id="errhppj"></div>
                                 </div>
                             </div>
+                            @if ($unit->file_ijop != null)
+                            <div id="collapse1" class='form-group row mb-4'> <label
+                                class='col-form-label text-md-right col-12 col-md-3 col-lg-3' for='lokasi'>Status Ijop</label>
+                            <div class='col-sm-12 col-md-7'>
+                                {{-- <p> {{ $unit->file_ijop !== '' ? 'Sudah Upload' }}</p> --}}
+                                <span class="badge badge-success">Sudah terunggah</span>
+                                {{-- <div class="alert-danger" id="errfile"></div> --}}
+                            </div>
+                        </div>
+                            
+                            @else
+                            
                             {{-- kasih if sekolah negeri disini --}}
                             <div id="collapse1" class='form-group row mb-4'> <label
                                     class='col-form-label text-md-right col-12 col-md-3 col-lg-3' for='lokasi'>Unggah
@@ -215,6 +229,7 @@
                                     <div class="alert-danger" id="errmasa"></div>
                                 </div>
                             </div>
+                            @endif
                             <div class='form-group row mb-4'>
                                 <label class='col-form-label text-md-right col-12 col-md-3 col-lg-3'
                                     for='status'>Kondisi Lembaga</label>

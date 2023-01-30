@@ -338,7 +338,7 @@
             processing: true,
             serverSide: true, //aktifkan server-side 
             ajax: {
-                url: "/sekolah", // ambil data
+                url: "/bmps", // ambil data
                 type: 'GET'
             },
             columns: [{

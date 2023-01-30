@@ -39,4 +39,6 @@ Route::middleware(['auth', 'role:sekolah'])->group(function () {
 });
 Route::middleware(['auth', 'role:kpa|admin'])->group(function () {
     Route::resource('sekolah', SekolahController::class);
+    Route::get('/bmps', [SekolahController::class,'bmps']);
+    Route::post('/bmps', [SekolahController::class,'bmps']);
 });
