@@ -18,8 +18,8 @@ class DetilSekolahController extends Controller
         //
         $user = Auth::user();
         $tittle = $user->nama;
-        $decid = $user->id;
-        $where = array('id' => $decid);
+        $decid = $user->username;
+        $where = array('npsn' => $decid);
         $unit = Sekolah::where($where)->first();
 
         return view(
@@ -95,6 +95,7 @@ class DetilSekolahController extends Controller
             'keterangan' => $validator['keterangan'],
             'namaks' => $request->namaks,
             'namapj' => $request->namapj,
+            'meluluskan' => $request->lulus,
             'no_ks' => $validator['hpks'],
             'file_ijop' =>$fileijop,
             'masa_ijop' => $masaijop,

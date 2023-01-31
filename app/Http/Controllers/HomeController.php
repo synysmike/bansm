@@ -18,7 +18,7 @@ class HomeController extends Controller
     {
         //
         // $nama = "Halaman Utama";
-        return redirect()->route('login');
+        return redirect('/login');
     }
 
     /**

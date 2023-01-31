@@ -166,6 +166,7 @@ class SekolahController extends Controller
             'keterangan' => $validator['keterangan'],
             'namaks' => $request->namaks,
             'namapj' => $request->namapj,
+            'meluluskan' => $request->lulus,
             'no_ks' => $validator['hpks'],
             'file_ijop' =>$fileijop,
             'masa_ijop' => $masaijop,
