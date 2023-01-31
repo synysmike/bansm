@@ -296,6 +296,23 @@
                                             <div class="alert-danger" id="errkelas"></div>
                                     </div>
                                 </div>
+                                <div id="field_bt2" class='form-group row mb-4'>
+                                    <label class='col-form-label text-md-right col-12 col-md-3 col-lg-3'
+                                        for='status'>Sudah Pernah Meluluskan?</label>
+                                    <div class='col-sm-12 col-md-7'>
+                                        <div class="col-md12">
+                                            <input checked="" type="radio" id="lulus1" value="1"
+                                                name="lulus" class="form-control-input">
+                                            <label class="col-form-label" for="lulus1">Sudah</label>
+                                        </div>
+                                        <div class="col-md12">
+                                            <input checked="" type="radio" id="lulus2" value="0"
+                                                name="lulus" class="form-control-input">
+                                            <label class="col-form-label " for="lulus2">Belum</label>
+                                        </div>
+                                    </div>
+                                    <div class="alert-danger" id="errlulus"></div>
+                                </div>
                                 {{-- <div class='form-group row mb-4'> <label
                                     class='col-form-label text-md-right col-12 col-md-3 col-lg-3' for='kuota_bt'>KUOTA
                                     BT</label>
@@ -419,15 +436,30 @@
                 var status = data.status;
                 var peringkat = data.peringkat;
                 var file_ijop = data.file_ijop;
+                var meluluskan = data.meluluskan;
 
                 
 
                 
                 if (peringkat == "BT") {
-                    $('#field_bt').show();
-                } else {
-                    $('#field_bt').hide();
-                }
+                        $('#field_bt').show();
+                        $('#field_bt2').show();
+                    } else {
+                        $('#field_bt').hide();
+                        $('#field_bt2').hide();
+                    }
+                    var lulus = document.getElementById('lulus1');
+                    var belum = document.getElementById('lulus2');
+                    if (meluluskan == null) {
+                        belum.checked = true
+                        lulus.checked = false
+                    } else if(meluluskan == 0){
+                        belum.checked = true
+                        lulus.checked = false
+                    }else if(meluluskan == 1){
+                        belum.checked = false
+                        lulus.checked = true
+                    }
 
 
                 if (status == "NEGERI") 
