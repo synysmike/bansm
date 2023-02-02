@@ -124,8 +124,11 @@ class KpaController extends Controller
      * @param  \App\Models\kpa  $kpa
      * @return \Illuminate\Http\Response
      */
-    public function destroy(kpa $kpa)
+    public function destroy($id)
     {
         //
+
+        // $data = User::where('id', $id)->delete();
+        // return response()->json($data);
     }
 }

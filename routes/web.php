@@ -3,6 +3,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KpaController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\SekolahController;
 use App\Http\Controllers\BukuTamuController;
 use App\Http\Controllers\DetilSekolahController;
@@ -34,6 +35,9 @@ use App\Http\Controllers\DetilSekolahController;
     Route::post('/login', [AuthController::class,'authenticate'])->name('authenticate');  
     Route::post('/logout',[ AuthController::class,'logout']);  
 
+    Route::middleware(['auth', 'role:admin'])->group(function () {
+        Route::resource('user', UserController::class);
+    });
 Route::middleware(['auth', 'role:sekolah'])->group(function () {
     Route::resource('/detilsekolah', DetilSekolahController::class);
 });

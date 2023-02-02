@@ -75,8 +75,7 @@ class UserSeeder extends Seeder
             'name'=>'MTSS AL-INAYAH',
             'username'=>'20583444',
             'password'=>bcrypt('20583444'),
-            'jabatan'=>'lembaga' ],           
-
+            'jabatan'=>'lembaga' ],         
             ];
 
             foreach($user as $key => $value){
