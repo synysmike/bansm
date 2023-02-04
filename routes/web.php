@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SekolahController;
 use App\Http\Controllers\BukuTamuController;
+use App\Http\Controllers\VerifikasiController;
 use App\Http\Controllers\DetilSekolahController;
 
 /*
@@ -37,6 +38,9 @@ use App\Http\Controllers\DetilSekolahController;
 
     Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::resource('user', UserController::class);
+    });
+    Route::middleware(['auth', 'role:kpa'])->group(function () {
+        Route::resource('verifikasi', VerifikasiController::class);
     });
 Route::middleware(['auth', 'role:sekolah'])->group(function () {
     Route::resource('/detilsekolah', DetilSekolahController::class);

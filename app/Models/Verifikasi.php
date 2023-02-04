@@ -3,8 +3,9 @@
 namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
-class BukuTamu extends Model
+class Verifikasi extends Model
 {
-    protected $table = 'bt';
+    protected $table = 'verifikasi';
     protected $guarded = ['id'];
+    
 }

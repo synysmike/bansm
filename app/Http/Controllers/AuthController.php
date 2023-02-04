@@ -41,6 +41,9 @@ class AuthController extends Controller
             }elseif($user->jabatan == 'bmps'){
                 $request->session()->regenerate();
                 return redirect()->intended('/bmps');
+            }elseif($user->jabatan == 'sekre'){
+                $request->session()->regenerate();
+                return redirect()->intended('/verifikasi');
             }
         }
         return back()->with('loginError','Login Gagal');
