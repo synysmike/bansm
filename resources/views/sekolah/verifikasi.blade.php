@@ -188,6 +188,9 @@
             });
             $(document).on('click', '.show-btn', function() {
                 $('#id-form').trigger("reset");
+                $(".alasanpr").summernote('reset');
+                $(".alasansk").summernote('reset');
+                $(".alasansa").summernote('reset');
                 var data_id = $(this).data('id');
                 $.get("/verifikasi/" + data_id, function(data) {
                     // $("#modal-judul").html("Edit Data");
@@ -303,6 +306,9 @@
                                         // console.log(response);
                                         $('#id-form').trigger(
                                             "reset");
+                                        $(".alasanpr").summernote('reset');
+                                        $(".alasansk").summernote('reset');
+                                        $(".alasansa").summernote('reset');
                                         $('#modal-show').modal(
                                             "hide");
                                         $('#form_submit').html('Simpan');
