@@ -27,6 +27,10 @@ class VerifikasiController extends Controller
         $data = Verifikasi::where('cek', 0)
         ->where('korwil', $korwil)
         ->get();
+        $sudah = Verifikasi::where('cek', 1)
+        ->where('status', 'Re 2023')
+        ->get();
+        $total = count($sudah);
         // dd($data);
         // return $data;
         if ($request->ajax()) {

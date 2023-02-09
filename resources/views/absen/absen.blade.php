@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title>Bukutamu &mdash; BAN-S/M JATIM</title>
+    <title>Absensi &mdash; BAN-S/M JATIM</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta property="og:title" content="Bukutamu" />
+    <meta property="og:title" content="Absensi" />
     {{-- <meta property="og:type" content="video.movie" /> --}}
     <meta property="og:url" content="{{ url()->current() }}" />
     <meta property="og:image" content="/ban.png" />
@@ -46,19 +46,21 @@
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-
+                        <p>
+                            Daftar Absensi per tanggal {{ $today }}
+                            </p>
                     </div>
                     <div class="modal-body">
                         <div class="table-responsive">
                             <table class="table-striped table" id="table-1">
                                 <thead>
                                     <tr>
-                                        <th class="text-center"> No. </th>
-                                        <th class="text-center"> Nama </th>
-                                        <th class="text-center"> HP </th>
-                                        <th class="text-center"> Asal </th>
-                                        <th class="text-center"> Keperluan </th>
-                                        <th class="text-center"> TTD </th>
+                                        <th> No. </th>
+                                        <th> Nama </th>
+                                        <th> C-in/C-out </th>
+                                        <th> Jam </th>
+                                        <th> TTD </th>
+                                        <th> hapus </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -86,7 +88,7 @@
                         <!-- Content -->
                         <div class="card card-primary">
                             <div class="card-header">
-                                <h4>Buku Tamu BAN-S/M</h4>
+                                <h4>Absen Sekretariat BAN-S/M</h4>
                             </div>
 
                             <div class="card-body">
@@ -95,54 +97,35 @@
                                     <div class="row">
                                         <div class="form-group col-6">
                                             <label for="nama">NAMA</label>
-                                            <input required id="nama" type="text" class="form-control"
-                                                name="nama" autofocus>
-                                                <div class="alert-danger" id="errnama"></div>
+                                            <select class="form-control" name="nama" id="nama" autofocus>
+                                                <option value="">--Pilih Nama Dulu--</option>
+                                                <option value="Widhi Candra Hermawan, S.Kom">Widhi Candra Hermawan, S.Kom</option>
+                                                <option value="Hisah Duwa Nuriana, S.Pd">Hisah Duwa Nuriana, S.Pd</option>
+                                                <option value="Ayu Budiarti">Ayu Budiarti</option>
+                                                <option value="Rosyida Sufiana, S.Kom">Rosyida Sufiana, S.Kom</option>
+                                                <option value="Teguh Purwo Jati Kusumo, S.Kom">Teguh Purwo Jati Kusumo, S.Kom</option>
+                                            </select>
+                                            <div id="errnama" class="alert-danger" id=""></div>
                                         </div>
                                         <div class="form-group col-6">
-                                            <label for="hp">No HP</label>
-                                            <input minlength="9" required
-                                                oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                                                maxlength="13" type="number" name="hp" class="form-control pl-1">
-                                                <div class="alert-danger" id="errhp"></div>
-                                            </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="asal">Asal</label>
-                                        <input required id="asal" type="text" class="form-control"
-                                            name="asal" placeholder="Apakah Anda dari Asesor/Lembaga(Sekolah/Madrasah/Yayasan)/Dinas/Kemenag?">
-                                            <div class="alert-danger" id="errasal"></div>
-                                        <div class="invalid-feedback">
+                                            <label for="cek">C-in/C-out</label>
+                                            <select class="form-control" name="cek" id="cek" autofocus>
+                                                <option value="">--Pilih C-in/C-out-</option>
+                                                <option value="C-in">C-in</option>
+                                                <option value="C-out">C-out</option>
+                                            </select>
+                                        <div id="errcek" class="alert-danger" id=""></div>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="alamat">Alamat</label>
-                                        <input required id="alamat" type="text" class="form-control"
-                                            name="alamat">
-                                        <div class="invalid-feedback">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="kpr">Keperluan</label>
-                                        <input required id="kpr" type="text" class="form-control"
-                                            name="kpr">
-                                            <div class="alert-danger" id="errkpr"></div>
-                                        <div class="invalid-feedback">
-                                        </div>
-                                    </div>
                                     <div class="form-group">
                                         <input required type="hidden" id="signature" name="signature">
                                     </div>
                                     <div class="form-group">
                                         <label for="sig">Tandatangan :</label></br>
-                                        <div class="js-signature" data-width="600" data-height="200"
-                                            data-border="1px solid black" data-line-color="#000000"
-                                            data-auto-fit="true"></div>
+                                        <div class="js-signature" data-width="600" data-height="200" data-border="1px solid black" data-line-color="#000000" data-auto-fit="true"></div>
                                         <div id="errsign" class="alert-danger" id=""></div>
                                         <button id="clearBtn" class="btn btn-danger">Ulangi TTD</button>
                                         <button type="button" class="btn btn-primary btn-icon icon-right"
-                                            id="btn-save">Klik 2x untuk simpan</button>
+                                            id="btn-save">simpan</button>
                                         <div class="invalid-feedback">
                                         </div>
                                     </div>
@@ -153,10 +136,13 @@
                                         {{-- <button type="submit" class="btn btn-primary btn-lg btn-block">
                                             Register
                                         </button> --}}
-                                        <button class="btn btn-primary btn-lg trigger--fire-modal-2"
-                                            id="modal-2">lihat pengunjung</button>
+                                        
                                     </div>
+                                </div>
                                 </form>
+                                
+                                <button class="btn btn-primary btn-lg trigger--fire-modal-2"
+                                            id="modal-2">lihat daftar absen</button>
                             </div>
                         </div>
 
@@ -206,7 +192,7 @@
             // for limit number char on phone number
             // $('#btn-save').attr('disabled', true);
             $('.js-signature').jqSignature();
-            $('#clearBtn').click(function() {
+            $('#clearBtn').click(function () { 
                 $('.js-signature').jqSignature('clearCanvas');
                 // $('#btn-save').attr('disabled', true);                
             });
@@ -226,9 +212,10 @@
                 $("#modal-show").modal('show');
                 var table = $('#table-1').DataTable({
                     processing: true,
-                    serverSide: true, //aktifkan server-side 
+                    serverSide: true,//aktifkan server-side 
+                    bDestroy: true,
                     ajax: {
-                        url: "/bukutamu", // ambil data
+                        url: "/absen", // ambil data
                         type: 'GET'
                     },
                     columns: [{
@@ -240,76 +227,99 @@
                             name: 'nama'
                         },
                         {
-                            data: 'nohp',
-                            name: 'nohp'
+                            data: 'cek',
+                            name: 'cek'
                         },
                         {
-                            data: 'asal',
-                            name: 'asal'
+                            data: 'jam',
+                            name: 'jam'
                         },
-                        {
-                            data: 'keperluan',
-                            name: 'keperluan'
-                        },
+                        
                         {
                             data: 'ttd',
                             name: 'ttd'
+                        },
+                        {
+                            data: 'hapus',
+                            name: 'hapus'
                         }
 
                     ],
                 });
             });
 
-            $(document).on('click', '#btn-save', function() {
+            $(document).on('click', '#btn-save', function() {  
                 // $('#signature').empty();
+                var dataUrl = $('.js-signature').jqSignature('getDataURL');
                 // var img = $('<img>').attr('src', dataUrl);
                 // $('#signature').append($('<p>').text("Here's your signature:"));
-                    // $('#signature').append(img);
-                    // console.log(sig.signature('toDataURL'));
-                    // var mycanvas = document.getElementById('canvas');
-                var dataUrl = $('.js-signature').jqSignature('getDataURL');
+                // $('#signature').append(img);
+                // console.log(sig.signature('toDataURL'));
+                // var mycanvas = document.getElementById('canvas');
                 var img = dataUrl;
                 // // console.log(img)
                 anchor = $("#signature");
                 anchor.val(img);
                 $("#id-form").submit();
-                
             });
 
 
-            $(document).on('submit', '#id-form', function(e) {
+            $(document).on('submit', '#id-form', function(e) {                
                 e.preventDefault()
                 var formData = new FormData(this) ;
                 $.ajax({
                     type: "POST",
-                    url: "{{ route('bukutamu.store') }}",
+                    url: "{{ route('absen.store') }}",
                     data: formData,
                     dataType: 'json',
                     processData: false,
                     contentType: false,
                     success: function(data) {
+                        
                         $('.js-signature').jqSignature('clearCanvas');
                         $('#id-form').trigger(
                             "reset");
                         $('#btn-save').html('Tersimpan');
                         //Reload Total Finansial Planing
                         swal("Berhasil",
-                            "Berkas telah tersimpan",
+                            "cek nang daftar absen",
                             "success");
                         var oTable = $("#table-1")
                                         .dataTable();
                                     oTable.fnDraw(false);
                     },
-                    error: function(data) {
+                    error: function(data) {                        
                         console.log('Error', data);
-                        $('#errnama').text('Mohon Mengisi Nama');
-                        $('#errhp').text("nomor HP jangan kosong");
-                        $('#errasal').text("asalnya belum diisi,Apakah Anda dari Asesor/Lembaga(Sekolah/Madrasah/Yayasan)/Dinas/Kemenag?");
-                        $('#errkpr').text('Keperluannya apa dulu');
-                        $('#errsign').text("jangan di kosongi tandatangannya");
+                        $('#errnama').text('wong garek dropdown mosok gak diisi KEBWACOTTT');
+                        $('#errcek').text('SUMPAHHH!!! LAK NUWWEMEN TAMBAHAN');
+                        $('#errsign').text('Yo di TTD reek');
+                        
                         $('#btn-save').html(
                             'Gagal Simpan, mohon diperbaiki lalu klik saya lagi'
                         );
+                    }
+                });
+            });
+            $(document).on('click', '.delete', function() {
+                dataId = $(this).attr('id');
+                console.log(dataId);
+                swal({
+                    dangerMode: true,
+                    title: 'Apakah Anda Yakin?',
+                    text: 'Data akan dihapus permanen',
+                    icon: 'warning',
+                    buttons: ["Tidak", "Iya"],
+                }).then(function(value) {
+                    if (value) {
+                        $.ajax({
+                            type: "DELETE",
+                            url: "/absen/" + dataId,
+                            success: function(data) {
+                                var oTable = $("#table-1").dataTable();
+                                oTable.fnDraw(false);
+                                swal("Berhasil", "Data telah terhapus", "success");
+                            }
+                        });
                     }
                 });
             });

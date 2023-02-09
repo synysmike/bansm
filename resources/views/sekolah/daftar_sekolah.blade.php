@@ -26,6 +26,7 @@
                                             <th class="text-center">Kab./Kota</th>
                                             <th class="text-center">Alamat</th>
                                             <th class="text-center">Status Lembaga</th>
+                                            <th class="text-center">Peringkat</th>
                                             <th class="text-center">Aksi</th>
                                             <th class="text-center">Status Verifikasi</th>
                                         </tr>
@@ -395,6 +396,10 @@
                         data: 'status',
                         name: 'status'
                     },
+                    {
+                        data: 'peringkat',
+                        name: 'peringkat'
+                    },
 
                     {
                         data: 'aksi',
@@ -448,6 +453,7 @@
                     var peringkat = data.peringkat;
                     var file_ijop = data.file_ijop;                    
                     var meluluskan = data.meluluskan;
+                    var kelas = data.kelas;
 
                     // show/hide form swasta 
                     if (status == "NEGERI") {
@@ -501,6 +507,13 @@
                     } else {
                         $('#div-keterangan').hide();
                     }
+
+
+                    if (kelas!== null){
+                        $("option[value|='"+kelas+"']").attr('selected','selected');
+                    }
+
+
 
                     // show/hide keterangan lembaga tutup 
                     $('#kondisi1').click(function() {
