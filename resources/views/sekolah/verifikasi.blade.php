@@ -16,8 +16,13 @@
                                 - SK/Ijop untuk Lembaga Madrasah (dibawah KEMENAG) memang tidak memiliki Masa berakhir</br>
                                 - Cek Dokumen Sertifikat Akreditasi hanya untuk lembaga Berstatus non-BT (Bukan Lembaga
                                 Baru)</p>
+                            
                         </div>
+                        
                         <div class="card-body">
+                            <div id="total">
+                                <><p id="hasil"></p><>
+                            </div>
                             <div class="table-responsive">
                                 <table class="table-striped table" id="table-1">
                                     <thead>
@@ -148,6 +153,11 @@
 
     <script>
         $(document).ready(function() {
+            $("#total").load("/total", "data", function(response, status, request) {
+
+                $('#total').html('Total Sasaran Lembaga RE 2023 yang sudah diverifikasi : ' +
+                response); // dom element                
+            });
             //datatable yajra
             var table = $('#table-1').DataTable({
                 processing: true,
@@ -198,37 +208,37 @@
                     $("#modal-show").modal('show');
                     $('#id').val(data.id);
                     $('#tittle').text('Cek Dokumen Upload ' + data.nama);
-                    if(data.sk == 'X'){
+                    if (data.sk == 'X') {
                         $('#skerr').show();
                         $('#sk').hide();
                         $('#skerr').text('SK belum diunggah');
-                    }else{
+                    } else {
                         $('#sk').show();
                         $('#skerr').hide();
                         $('#sk').attr('src', data.sk);
                     }
 
-                    if(data.sa == 'X'){
+                    if (data.sa == 'X') {
                         $('#saerr').show();
                         $('#sa').hide();
                         $('#saerr').text('Sertifikat akreditasi belum diunggah');
-                    }else{
+                    } else {
                         $('#sa').show();
                         $('#saerr').hide();
                         $('#sa').attr('src', data.sa);
                     }
 
-                    if(data.pr == 'X'){
-                        $('#prerr').show();   
+                    if (data.pr == 'X') {
+                        $('#prerr').show();
                         $('#pr').hide();
                         $('#prerr').text('Surat Permohonan belum diunggah');
-                        
-                    }else{
+
+                    } else {
                         $('#pr').show();
-                        $('#prerr').hide();   
+                        $('#prerr').hide();
                         $('#pr').attr('src', data.pr);
                     }
-                    
+
                     $('#linksk').attr('href', data.sk);
                     $('#linksa').attr('href', data.sa);
                     $('#linkpr').attr('href', data.pr);
@@ -288,6 +298,7 @@
                         $('#alasansa').hide();
 
                     });
+
                     if ($("#id-form").length > 0) {
                         $("#id-form").validate({
                             // validasi mime type
@@ -304,6 +315,14 @@
                                     contentType: false,
                                     success: function(response) {
                                         // console.log(response);
+                                        $("#total").load("/total", "data",
+                                            function(response, status,
+                                                request) {
+                                                $('#total').html(
+                                                    'Total Sasaran Lembaga RE 2023 yang sudah diverifikasi :' +
+                                                    response
+                                                    ); // dom element                
+                                            });
                                         $('#id-form').trigger(
                                             "reset");
                                         $(".alasanpr").summernote('reset');
@@ -323,11 +342,24 @@
                                     },
                                     error: function(data) {
                                         console.log('Error', data);
-                                        
-                                            $('#errpr').text('mohon dipilih dulu').attr('style','-webkit-text-fill-color: red;');
-                                            $('#errsk').text('mohon dipilih dulu').attr('style','-webkit-text-fill-color: red;');
-                                            $('#errsa').text('mohon dipilih dulu').attr('style','-webkit-text-fill-color: red;');
-                                            $('#form_submit').html('Gagal Simpan, mohon diperbaiki lalu klik saya lagi'
+
+                                        $('#errpr').text(
+                                            'mohon dipilih dulu').attr(
+                                            'style',
+                                            '-webkit-text-fill-color: red;'
+                                            );
+                                        $('#errsk').text(
+                                            'mohon dipilih dulu').attr(
+                                            'style',
+                                            '-webkit-text-fill-color: red;'
+                                            );
+                                        $('#errsa').text(
+                                            'mohon dipilih dulu').attr(
+                                            'style',
+                                            '-webkit-text-fill-color: red;'
+                                            );
+                                        $('#form_submit').html(
+                                            'Gagal Simpan, mohon diperbaiki lalu klik saya lagi'
                                         );
                                     }
                                 });

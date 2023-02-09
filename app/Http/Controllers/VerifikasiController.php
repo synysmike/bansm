@@ -23,14 +23,10 @@ class VerifikasiController extends Controller
         $korwil = $user->role;
         // $kabkota = $user->kab_kota;
         // dd($kabkota);
-
         $data = Verifikasi::where('cek', 0)
         ->where('korwil', $korwil)
         ->get();
-        $sudah = Verifikasi::where('cek', 1)
-        ->where('status', 'Re 2023')
-        ->get();
-        $total = count($sudah);
+        
         // dd($data);
         // return $data;
         if ($request->ajax()) {
@@ -48,8 +44,21 @@ class VerifikasiController extends Controller
             'sekolah.verifikasi',
             compact('tittle')
         );
+        
     }
 
+    public function total(){
+        
+        $sudah = Verifikasi::where('cek', 1)
+        ->where('status', 'Re 2023')
+        ->get();
+        $semua = Verifikasi::where('status', 'Re 2023')
+        ->get();
+        $totalsudah = count($sudah);
+        $totalre = count($semua);
+        $message = $totalsudah."  dari ".$totalre;
+        return response()->json($message);
+    }
     /**
      * Show the form for creating a new resource.
      *

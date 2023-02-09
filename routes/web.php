@@ -30,6 +30,7 @@ use App\Http\Controllers\DetilSekolahController;
 
 
     Route::get('/', [HomeController::class, 'index']);
+    Route::get('/total', [VerifikasiController::class, 'total']);
     Route::get('/registrasi-kpa', [KpaController::class, 'index']);
     Route::resource('kpa', KpaController::class);
     Route::resource('/absen', AbsenController::class);
