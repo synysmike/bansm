@@ -166,7 +166,8 @@
                     url: "/verifikasi", // ambil data
                     type: 'GET'
                 },
-                columns: [{
+                columns: [
+                    {
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex'
                     },
@@ -187,7 +188,6 @@
                         data: 'status',
                         name: 'status'
                     },
-
 
                     {
                         data: 'aksi',

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\sekolah;
+use App\Models\Verifikasi;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -35,14 +36,40 @@ class DetilSekolahController extends Controller
     public function create()
     {
         //
+        
     }
-
+    public function status()
+    {
+        //
+        $user = Auth::user();
+        $npsn = $user->username;
+        $where = array('npsn' => $npsn);
+        $unit = Verifikasi::where($where)->first();
+        return response()->json($unit);
+    }
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+    
+    public function perbaikan(Request $request)
+    { 
+        // dd($request->all());
+        $id = $request->id;
+        $unit =
+        Verifikasi::updateOrCreate(
+            ['id' => $id],
+            [
+            'cek' => $request->cek
+        ]);
+        return response()->json($unit);
+    }
+
+
+
     public function store(Request $request)
     {        
         $alldata = $request->all();

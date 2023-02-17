@@ -13,7 +13,10 @@
                 </div>
             </div>
             <div class="card-body">
-                <form id="id-form" action="{{ route('detilsekolah.store') }}" method="post" enctype="multipart/form-data">
+                <div id="stat_ver"></div>
+                <button class="btn btn-info" id="cek">Cek Status Verifikasi</button>
+                <form id="id-form" action="{{ route('detilsekolah.store') }}" method="post"
+                    enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-6">
                             <div class='form-group row mb-4'> <label
@@ -198,37 +201,37 @@
                                 </div>
                             </div>
                             @if ($unit->file_ijop != null)
-                            <div id="collapse1" class='form-group row mb-4'> <label
-                                class='col-form-label text-md-right col-12 col-md-3 col-lg-3' for='lokasi'>Status Ijop</label>
-                            <div class='col-sm-12 col-md-7'>
-                                {{-- <p> {{ $unit->file_ijop !== '' ? 'Sudah Upload' }}</p> --}}
-                                <span class="badge badge-success">Sudah terunggah</span>
-                                {{-- <div class="alert-danger" id="errfile"></div> --}}
-                            </div>
-                        </div>
-                            
+                                <div id="collapse1" class='form-group row mb-4'> <label
+                                        class='col-form-label text-md-right col-12 col-md-3 col-lg-3'
+                                        for='lokasi'>Status Ijop</label>
+                                    <div class='col-sm-12 col-md-7'>
+                                        {{-- <p> {{ $unit->file_ijop !== '' ? 'Sudah Upload' }}</p> --}}
+                                        <span class="badge badge-success">Sudah terunggah</span>
+                                        {{-- <div class="alert-danger" id="errfile"></div> --}}
+                                    </div>
+                                </div>
                             @else
-                            
-                            {{-- kasih if sekolah negeri disini --}}
-                            <div id="collapse1" class='form-group row mb-4'> <label
-                                    class='col-form-label text-md-right col-12 col-md-3 col-lg-3' for='lokasi'>Unggah
-                                    Ijop</label>
-                                <div class='col-sm-12 col-md-7'>
-                                    {{-- <p> {{ $unit->file_ijop !== '' ? 'Sudah Upload' }}</p> --}}
-                                    <input id='ijop' type='file' class='form-control' placeholder='ijop'
-                                        name='ijop' value=''>
-                                    <div class="alert-danger" id="errfile"></div>
+                                {{-- kasih if sekolah negeri disini --}}
+                                <div id="collapse1" class='form-group row mb-4'> <label
+                                        class='col-form-label text-md-right col-12 col-md-3 col-lg-3'
+                                        for='lokasi'>Unggah
+                                        Ijop</label>
+                                    <div class='col-sm-12 col-md-7'>
+                                        {{-- <p> {{ $unit->file_ijop !== '' ? 'Sudah Upload' }}</p> --}}
+                                        <input id='ijop' type='file' class='form-control' placeholder='ijop'
+                                            name='ijop' value=''>
+                                        <div class="alert-danger" id="errfile"></div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div id="collapse2" class='form-group row mb-4'> <label class='col-form-label '
-                                    for='lokasi'>Masa
-                                    Berlaku Ijop</label>
-                                <div class='col-sm-12 col-md-7'>
-                                    <input id='masa_ijop' type='input' class='form-control datepicker'
-                                        placeholder='masa_ijop' name='masa_ijop' value='{{ $unit->masa_ijop }}'>
-                                    <div class="alert-danger" id="errmasa"></div>
+                                <div id="collapse2" class='form-group row mb-4'> <label class='col-form-label '
+                                        for='lokasi'>Masa
+                                        Berlaku Ijop</label>
+                                    <div class='col-sm-12 col-md-7'>
+                                        <input id='masa_ijop' type='input' class='form-control datepicker'
+                                            placeholder='masa_ijop' name='masa_ijop' value='{{ $unit->masa_ijop }}'>
+                                        <div class="alert-danger" id="errmasa"></div>
+                                    </div>
                                 </div>
-                            </div>
                             @endif
                             <div class='form-group row mb-4'>
                                 <label class='col-form-label text-md-right col-12 col-md-3 col-lg-3'
@@ -280,8 +283,8 @@
                                 </div>
                             </div>
                             <div id="field_bt2" class='form-group row mb-4'>
-                                <label class='col-form-label text-md-right col-12 col-md-3 col-lg-3'
-                                    for='status'>Sudah Pernah Meluluskan?</label>
+                                <label class='col-form-label text-md-right col-12 col-md-3 col-lg-3' for='status'>Sudah
+                                    Pernah Meluluskan?</label>
                                 <div class='col-sm-12 col-md-7'>
                                     <div class="col-md12">
                                         <input checked="" type="radio" id="lulus1" value="1"
@@ -333,64 +336,131 @@
     {{-- <script src="admin_theme/js/page/bootstrap-modal.js"></script> --}}
     <script type="text/javascript">
         $(document).ready(function() {
+            $("#cek").on('click', function() {
+                // $("#stat_ver").load("/status", "data", function (response, status, request) {
+                //     // this; // dom element
+                //     console.log(this);
+                // });
+                $.getJSON("/status",
+                    function(data) {
+                        // console.log(data)
+                        var cek = data.cek;
+                        var statuspr = data.statuspr;
+                        var statussk = data.statussk;
+                        var statussa = data.statuspr;
+                        // kondisi cek verifikasi
+                        if (cek == 1) {
+                            var status = "Sudah Diverifikasi";
+                            $("#stat_ver").html('<div class="alert alert-success" role="alert"><strong> Status: ' + status + '</strong></div>');
+                            var ket =
+                                "<div class='alert alert-info' role='alert'>Mohon perbaiki dokumen yang salah pada pengajuan di <a class='btn btn-warning ' target='_blank' href='https://bansm.kemdikbud.go.id/sispena2020'>SISPENA</a>, bila sudah diperbaiki, klik tombol sudah diperbaiki </div>"
+                            var terima = data.approve;
+                            if (statuspr == 0 || statussk == 0 || statussa == 0) {
+                                if (statuspr == 0) {
+                                    if (data.kt == null) {
+                                        $("#stat_ver").append('<div class="alert alert-danger" role="alert"><strong>Surat permohonan yang anda unggah : Belum unggah SISPENA</strong></div>')
+                                    } else {
+                                        $("#stat_ver").append(
+                                            '<div class="alert alert-danger" role="alert"><strong> Surat permohonan yang anda unggah : ' +
+                                            data
+                                            .ktpr +
+                                            '</strong></div>');
+                                    }
+                                }
+                                if (statussk == 0) {
+                                    if (data.kt == null) {
+                                        $("#stat_ver").append('<div class="alert alert-danger" role="alert"><strong>SK/Ijop yang anda unggah : Belum unggah SISPENA</strong></div>')
+                                    } else {
+                                        $("#stat_ver").append(
+                                            '<div class="alert alert-danger" role="alert"><strong> SK/Ijop yang anda unggah : ' +
+                                            data
+                                            .ktsk + '</strong></div>');
+                                    }
+                                }
+                                if (statussa == 0) {
+                                    if (data.kt == null) {
+                                        $("#stat_ver").append('<div class="alert alert-danger" role="alert"><strong>Sertifikat Akreditasi yang anda unggah : Belum unggah SISPENA</strong></div>')
+                                    } else {
+                                        $("#stat_ver").append(
+                                            '<div class="alert alert-danger" role="alert"><strong> Sertifikat Akreditasi yang anda unggah : ' +
+                                            data
+                                            .ktsa + '</strong></div>');
+                                    }
+                                }
+                                $("#stat_ver").append(ket);
+                                // tombol verifikasi perbaikan
+                                $("#stat_ver").append(
+                                    '<button id="fixed" class="btn btn-success mb-3">Sudah Diperbaiki</button>'
+                                );
+                                $("#fixed").on("click", function() {
+                                    $.ajax({
+                                        type: "post",
+                                        url: "/perbaikan",
+                                        data: {
+                                            id: data.id,
+                                            cek: 0
+                                        },
+                                        dataType: "json",
+                                        // processData: false,
+                                        // contentType: false,
+                                        success: function(response) {
+                                            // console.log(data);
+                                            swal("Berhasil",
+                                                "Pastikan anda sudah benar-benar memperbaiki dokumen unggahan di sispena",
+                                                "success");
+                                                window.location.href = "detilsekolah";
+                                        }
+                                    });
+                                });
+                            } else if (statuspr == 1 || statussk == 1 || statussa == 1) {
+                                if (terima == 1) {
+                                    $("#stat_ver").append(
+                                        '<div class="alert alert-success" role="alert">Pengajuan Telah Kami Approve, Silahkan Isi DIA pada <a class="btn btn-warning" target="_blank"  href="https://bansm.kemdikbud.go.id/sispena2020">SISPENA</a></div>'
+                                    );
+                                } else {
+                                    $("#stat_ver").append(
+                                        '<div class="alert alert-warning" role="alert">Menunggu proses Approval pada sispena</div>');
+                                }
+                            }
+                        } else {
+                            var status = "Belum Diverifikasi";
+                            $("#stat_ver").html('<div class="alert alert-warning" role="alert"><strong> Status: ' + status + '</strong></div>');
+                            $("#stat_ver").append(
+                                '<div class="alert alert-warning" role="alert"><strong>Mohon menunggu hasil Berifikasi</strong></div>');
+                        }
+                        // jika ada kesalahan upload
+                    }
+                );
+            });
 
             // trigger page
             $(window).on('load', ShowCurrentTime());
 
             function ShowCurrentTime() {
-                // $('#id-form').trigger("reset");
-                // var data_id = $(this).data('id');
-                // $.get("/sekolah/" + data_id, function (data) {
-                //     $('#tittle').text(data.nama);
-                //     $('#no').val(data.no);
-                //     $('#id').val(data.id);
-                //     $('#npsn').val(data.npsn);
-                //     $('#nama_satuan_pendidikan').val(data.nama);
-                //     $('#jenjang1').val(data.jenjang1);
-                //     $('#jenjang2').val(data.jenjang2);
-                //     $('#status').val(data.status);
-                //     $('#alamat').val(data.alamat);
-                //     $('#kelurahan').val(data.kelurahan);
-                //     $('#kecamatan').val(data.kecamatan);
-                //     $('#kab_kota').val(data.kab_kota);
-                //     $('#lokasi').val(data.lokasi);
-                //     $('#tahun_akre').val(data.tahun_akre);
-                //     $('#nilai_akhir').val(data.nilai_akhir);
-                //     $('#peringkat').val(data.peringkat);
-                //     $('#namaks').val(data.namaks);
-                //     $('#hpks').val(data.no_ks);
-                //     $('#namapj').val(data.namapj);
-                //     $('#hppj').val(data.hppj);
-                //     $('#no_sk').val(data.no_sk);
-                //     $('#tgl_sk').val(data.tgl_sk);
-                //     $('#status_sasaran').val(data.status_sasaran);
-                //     $('#tahap_visit').val(data.tahap_visit);
-                //     var smmrnote = data.keterangan;
-                //     $(".summernote-simple").summernote('code', smmrnote);
-                //     $('#kuota_bt').val(data.kuota_bt);
+
                 var status = "{{ $unit->status }}";
                 var peringkat = "{{ $unit->peringkat }}";
                 var meluluskan = "{{ $unit->meluluskan }}";
 
                 if (peringkat == "BT") {
-                        $('#field_bt').show();
-                        $('#field_bt2').show();
-                    } else {
-                        $('#field_bt').hide();
-                        $('#field_bt2').hide();
-                    }
-                    var lulus = document.getElementById('lulus1');
-                    var belum = document.getElementById('lulus2');
-                    if (meluluskan == null) {
-                        belum.checked = true
-                        lulus.checked = false
-                    } else if(meluluskan == 0){
-                        belum.checked = true
-                        lulus.checked = false
-                    }else if(meluluskan == 1){
-                        belum.checked = false
-                        lulus.checked = true
-                    }
+                    $('#field_bt').show();
+                    $('#field_bt2').show();
+                } else {
+                    $('#field_bt').hide();
+                    $('#field_bt2').hide();
+                }
+                var lulus = document.getElementById('lulus1');
+                var belum = document.getElementById('lulus2');
+                if (meluluskan == null) {
+                    belum.checked = true
+                    lulus.checked = false
+                } else if (meluluskan == 0) {
+                    belum.checked = true
+                    lulus.checked = false
+                } else if (meluluskan == 1) {
+                    belum.checked = false
+                    lulus.checked = true
+                }
 
                 if (status == "NEGERI") {
                     $('#collapse1').hide();
@@ -430,6 +500,7 @@
                     //     });
                     // klik submit                
                 });
+
                 if ($("#id-form").length > 0) {
                     $("#id-form").validate({
                         // validasi mime type
@@ -484,7 +555,7 @@
                                     $('#errkelas').text(data.responseJSON.errors.kelas);
                                     $('#form_submit').html(
                                         'Gagal Simpan, mohon diperbaiki lalu klik saya lagi'
-                                        );
+                                    );
                                 }
                             });
                         }
