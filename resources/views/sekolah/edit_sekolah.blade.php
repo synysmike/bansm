@@ -398,7 +398,8 @@
                                         url: "/perbaikan",
                                         data: {
                                             id: data.id,
-                                            cek: 0
+                                            cek: 0,
+                                            perbaikan:1
                                         },
                                         dataType: "json",
                                         // processData: false,

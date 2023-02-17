@@ -63,7 +63,8 @@ class DetilSekolahController extends Controller
         Verifikasi::updateOrCreate(
             ['id' => $id],
             [
-            'cek' => $request->cek
+            'cek' => $request->cek,
+            'perbaikan' => $request->perbaikan
         ]);
         return response()->json($unit);
     }
