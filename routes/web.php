@@ -46,6 +46,7 @@ use App\Http\Controllers\DetilSekolahController;
     });
     Route::middleware(['auth', 'role:kpa'])->group(function () {
         Route::resource('verifikasi', VerifikasiController::class);
+        Route::get('/admin', [SekolahController::class,'admin']);
     });
 Route::middleware(['auth', 'role:sekolah'])->group(function () {
     Route::resource('/detilsekolah', DetilSekolahController::class);

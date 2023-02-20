@@ -20,13 +20,20 @@ class VerifikasiController extends Controller
         //
         $user = Auth::user();
         $tittle = $user->nama;
-        $korwil = $user->role;
+        $role = $user->jabatan;
+        if($role=="admin"){
+            $data = Verifikasi::all();
+        }elseif($role=="sekre"){
+            $korwil = $user->role;
+            $data = Verifikasi::where('cek', 0)
+            ->where('korwil', $korwil)
+            ->get();
+        }
+
+        
+        
         // $kabkota = $user->kab_kota;
         // dd($kabkota);
-        $data = Verifikasi::where('cek', 0)
-        ->where('korwil', $korwil)
-        ->get();
-        
         // dd($data);
         // return $data;
         if ($request->ajax()) {

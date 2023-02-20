@@ -22,7 +22,6 @@ class SekolahController extends Controller
     public function index(Request $request)
     {
         //
-
         $user = Auth::user();
         $tittle = $user->nama;
         $kabkota = $user->kab_kota;
@@ -31,7 +30,7 @@ class SekolahController extends Controller
             $data = Sekolah::where('kab_kota',$kabkota)->get();
         }elseif($user->jabatan === "sekre"){
             $data = Sekolah::all();
-                }
+            }
 
         
         // dd($data);
@@ -60,16 +59,51 @@ class SekolahController extends Controller
             compact('tittle')
         );
     }
+    public function admin(Request $request)
+    {
+        //
+        $user = Auth::user();
+        $tittle = $user->nama;
+        $kabkota = $user->kab_kota;
+        // dd($kabkota);
+        $data = Sekolah::all();
+        // dd($data);
+        // return $data;
+        if ($request->ajax()) {
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('kondisi', function ($data) {
+                    $cek = $data->kondisi;
+                    if($cek == 1){
+                        return 'Buka';
+                    }else{
+                        return 'Tutup';
+                    }
+                })
+                ->addColumn('mengisi', function ($data) {
+                    $cek1 = $data->updated_at;
+                    if($cek1 !== null){
+                        return '<span class="badge badge-success">Sudah di edit</span>';
+                    }else{
+                        return '<span class="badge badge-info">Belum di edit</span>';
+                    }
+                })   
+                ->rawColumns(['mengisi','kondisi'])    
+                ->make(true);
+        }
+        return view(
+            'sekolah.admin_sekolah',
+            compact('tittle')
+        );
+    }
     public function bmps(Request $request)
     {
         //
-
         $user = Auth::user();
         $tittle = $user->nama;
         $kabkota = $user->kab_kota;
         $status = 'swasta';
         // dd($kabkota);
-
         // $data = Sekolah::where('kab_kota',$kabkota)
         // ->where('status','swasta')
         // ->get();
