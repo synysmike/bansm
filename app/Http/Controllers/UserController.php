@@ -30,7 +30,7 @@ class UserController extends Controller
                 ->addIndexColumn()
                 ->addColumn('aksi', function ($data) {
                     $url = Crypt::encrypt($data->id);
-                    return '<a href="javascript:void(0)" id="'. $url .'" data-id="' . $url . '" class="btn btn-info show-btn delete"> delete</a>';
+                    return '<a href="javascript:void(0)" id="'. $url .'" data-id="' . $url . '" class=" position-relative btn btn-info show-btn delete"> delete</a>';
                 })                      
                 ->rawColumns(['aksi'])        
                 // ->rawColumns([])

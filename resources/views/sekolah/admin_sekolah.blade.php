@@ -36,6 +36,32 @@
                                     </thead>
                                     <tbody> </tbody>
                                 </table>
+                                <table class="table-striped table" id="table-2">
+
+                                    <thead>
+                                        <tr>
+                                            <th rowspan="2">No</th>
+                                            <th rowspan="2">NPSN</th>
+                                            <th rowspan="2">Nama Sekolah</th>
+                                            <th rowspan="2">Jenjang</th>
+                                            <th rowspan="2">Provinsi</th>
+                                            <th rowspan="2">Kab/Kota</th>
+                                            <th rowspan="2">Tahun Ajuan</th>
+                                            <th colspan="5">Unggahan</td>
+                                            <th rowspan="2">Status</th>
+                                            <th rowspan="2">Approval</th>
+                                        </tr>
+                                        <tr>
+                                            <th>S.A</th>
+                                            <th>SK/IJOP</th>
+                                            <th>S.S</th>
+                                            <th>N.K</th>
+                                            <th><i class="fas fa-mobile-alt"></i>/<i class="fab fa-whatsapp"></i></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody> </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -66,6 +92,20 @@
     <script>
         $(document).ready(function() {
             //datatable yajra
+
+            $('#table-2').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "ajax": {
+                    "url": "https://bansm.kemdikbud.go.id/sispena2020/sasaran/re/ajax_list",
+                    "type": "get"
+                },
+                "lengthMenu": [
+                    [10, 25, 50, 100, 250, 500, 1000, -1],
+                    [10, 25, 50, 100, 250, 500, 1000, "All"]
+                ]
+            });
+
             var table = $('#table-1').DataTable({
                 processing: true,
                 serverSide: true, //aktifkan server-side 
@@ -125,13 +165,13 @@
                 ],
                 iDisplayLength: 10,
                 // dom: 'Bfrtip'
-                
+
             });
             new $.fn.dataTable.Buttons(table, {
                 buttons: [
                     'copy', 'excel'
                 ],
-                
+
             });
 
             table.buttons(0, null).container().prependTo(
@@ -140,5 +180,233 @@
 
 
         });
+
+
+
+
+
+
+
+
+
+
+
+
+
+        $(document).ready(function() {
+            $('#sasaran').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "ajax": {
+                    "url": "https://bansm.kemdikbud.go.id/sispena2020/sasaran/re/ajax_list",
+                    "type": "post"
+                },
+                "lengthMenu": [
+                    [10, 25, 50, 100, 250, 500, 1000, -1],
+                    [10, 25, 50, 100, 250, 500, 1000, "All"]
+                ]
+            });
+
+
+
+            $('#sasaran table').removeAttr('style');
+            
+            $('#form_ubah_data_sasaran [name="ubah_peringkat"]').change(function() {
+                if (this.value === "BT" || this.value === "TT") {
+                    $('#test').css('display', 'none');
+                    $('#save_ubah_data_sasaran').removeAttr('disabled');
+                } else if (this.value != $('[name="old_peringkat"]').val()) {
+                    $('#test').css('display', 'inline');
+                    $('#save_ubah_data_sasaran').css('display', 'block').attr('disabled', true);
+                } else {
+                    $('#test').css('display', 'none');
+                    $('#save_ubah_data_sasaran').removeAttr('disabled');
+                }
+            });
+
+
+            $('#form_ubah_data_sasaran [name="ubah_tahun"]').change(function() {
+                if ($('[name="ubah_peringkat"]').val() === "BT" || $('[name="ubah_peringkat"]').val() ===
+                    "TT") {
+                    $('#test').css('display', 'none');
+                    $('#save_ubah_data_sasaran').removeAttr('disabled');
+                } else if (this.value != $('[name="old_tahun"]').val()) {
+                    $('#test').css('display', 'inline');
+                } else {
+                    $('#test').css('display', 'none');
+                }
+            });
+
+            bsCustomFileInput.init();
+            var bar = $('.progress-bar');
+            var percent = $('.percent');
+            var status = $('#status');
+
+            $('#form_upload_scan').ajaxForm({
+                beforeSend: function() {
+                    $('.progress').css('display', 'block');
+                    status.empty();
+                    var percentVal = '0%';
+                    bar.width(percentVal)
+                    percent.html(percentVal);
+                },
+                uploadProgress: function(event, position, total, percentComplete) {
+                    var percentVal = percentComplete + '%';
+                    bar.width(percentVal)
+                    percent.html(percentVal);
+                },
+                success: function() {
+                    var percentVal = '100%';
+                    bar.width(percentVal)
+                    percent.html(percentVal);
+                },
+                complete: function(xhr) {
+                    status.html(xhr.responseText);
+                    $('#save_ubah_data_sasaran').removeAttr('disabled');
+                }
+            });
+
+            $('#form_ubah_data_sasaran').ajaxForm();
+            $('#save_ubah_data_sasaran').click(function() {
+                $('#content_ubah_data_sasaran').prepend(
+                    '<div id="overlay" class="overlay d-flex justify-content-center align-items-center"><i class="fas fa-2x fa-sync fa-spin"></i></div>'
+                    );
+                var option = {
+                    success: showResponse
+                };
+                $('#form_ubah_data_sasaran').ajaxSubmit(option);
+                return false;
+            });
+
+            function showResponse(responseText, statusText, xhr, $form) {
+                $('#overlay').remove();
+                $('#modal_ubah_data_sasaran').modal('hide');
+                $('#sasaran').DataTable().ajax.reload();
+            }
+
+            $('#tambah_sasaran').click(function() {
+                $('#form_tambah_data_sasaran').trigger('reset');
+                $('#modal_tambah_data_sasaran').modal('show');
+            })
+
+            $('#form_tambah_data_sasaran [name="tambah_peringkat"]').change(function() {
+                if (this.value === "BT" || this.value === "TT") {
+                    $('#tambah_unggah').css('display', 'none');
+                    $('#save_tambah_data_sasaran').removeAttr('disabled');
+                } else if (this.value != $('[name="old_peringkat"]').val()) {
+                    $('#tambah_unggah').css('display', 'inline');
+                    $('#save_tambah_data_sasaran').css('display', 'block').attr('disabled', true);
+                } else {
+                    $('#tambah_unggah').css('display', 'none');
+                    $('#save_tambah_data_sasaran').removeAttr('disabled');
+                }
+            });
+
+            $('#form_tambah_data_sasaran [name="tambah_tahun"]').change(function() {
+                if ($('[name="tambah_peringkat"]').val() === "BT" || $('[name="tambah_peringkat"]')
+                .val() === "TT") {
+                    $('#tambah_unggah').css('display', 'none');
+                    $('#save_tambah_data_sasaran').removeAttr('disabled');
+                } else if (this.value != $('[name="old_tahun"]').val()) {
+                    $('#tambah_unggah').css('display', 'inline');
+                } else {
+                    $('#tambah_unggah').css('display', 'none');
+                }
+            });
+
+            $('#save_tambah_data_sasaran').click(function() {
+                $('#content_tambah_data_sasaran').prepend(
+                    '<div id="overlay" class="overlay d-flex justify-content-center align-items-center"><i class="fas fa-2x fa-sync fa-spin"></i></div>'
+                    );
+                var option = {
+                    success: showResponseTambah
+                };
+                $('#form_tambah_data_sasaran').ajaxSubmit(option);
+                return false;
+            });
+
+            function showResponseTambah(responseText, statusText, xhr, $form) {
+                $('#overlay').remove();
+                $('#modal_tambah_data_sasaran').modal('hide');
+                $('#sasaran').DataTable().ajax.reload();
+            }
+
+            var options = {
+                url: function(phrase) {
+                    return "https://bansm.kemdikbud.go.id/sispena2020/sasaran/cari_npsn";
+                },
+
+                getValue: function(element) {
+                    return element.label;
+                },
+
+                ajaxSettings: {
+                    dataType: "json",
+                    method: "POST",
+                    data: {
+                        dataType: "json"
+                    }
+                },
+                list: {
+                    match: {
+                        enabled: true
+                    },
+                    onClickEvent: function() {
+                        var value = $('#npsn').getSelectedItemData().npsn;
+                        $('#h_npsn').val(value).trigger('change');
+                    }
+                },
+
+                //preparePostData: function(data) {
+                // data.phrase = $("#npsn").val();
+                // return data;
+                //},
+
+                //requestDelay: 400,
+                adjustWidth: 100
+            };
+
+            $("#npsn").easyAutocomplete(options);
+        });
+
+        function ganti_status(param, id) {
+            window.location.href = "https://bansm.kemdikbud.go.id/sispena2020/sasaran/ganti_status/" + param + "/" + id;
+        }
+
+        function ubah_sasaran(sekolah_id) {
+            $("#form_ubah_data_sasaran").trigger('reset');
+            $.ajax({
+                url: 'https://bansm.kemdikbud.go.id/sispena2020/sasaran/ubah_sasaran/' + sekolah_id,
+                type: 'get',
+                dataType: 'json',
+                success: function(data) {
+                    var tahun, peringkat;
+                    if (data.peringkat_perbaikan) {
+                        peringkat = data.peringkat_perbaikan;
+                    } else {
+                        peringkat = data.peringkat;
+                    }
+                    if (data.tahun_perbaikan) {
+                        tahun = data.tahun_perbaikan;
+                    } else {
+                        tahun = data.tahun;
+                    }
+                    $('#form_ubah_data_sasaran [name="sekolah_id"]').val(sekolah_id);
+                    $('#form_ubah_data_sasaran [name="npsn"]').val(data.npsn);
+                    $('#form_ubah_data_sasaran [name="ubah_peringkat"]').val(peringkat);
+                    $('#form_ubah_data_sasaran [name="ubah_peringkat"] option:selected').attr('selected',
+                        'selected');
+                    $('#form_ubah_data_sasaran [name="ubah_tahun"]').val(tahun);
+                    $('#form_ubah_data_sasaran [name="ubah_tahun"] option:selected').attr('selected',
+                        'selected');
+                    $('#form_ubah_data_sasaran [name="old_peringkat"]').val(peringkat);
+                    $('#form_ubah_data_sasaran [name="old_tahun"]').val(tahun);
+                    $('#modal_ubah_data_sasaran').modal('show');
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert('Error get data from ajax');
+                }
+            });
+        }
     </script>
 @endpush
