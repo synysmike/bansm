@@ -28,7 +28,7 @@ class SekolahController extends Controller
         // dd($kabkota);
         if($user->jabatan === "kpa"){
             $data = Sekolah::where('kab_kota',$kabkota)->get();
-        }elseif($user->jabatan === "sekre"){
+        }elseif($user->jabatan === "admin"){
             $data = Sekolah::all();
             }
 
