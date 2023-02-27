@@ -9,6 +9,7 @@ use App\Http\Controllers\RakordaController;
 use App\Http\Controllers\SekolahController;
 use App\Http\Controllers\BukuTamuController;
 use App\Http\Controllers\VerifikasiController;
+use App\Http\Controllers\DaftarhadirController;
 use App\Http\Controllers\DetilSekolahController;
 
 /*
@@ -37,6 +38,7 @@ use App\Http\Controllers\DetilSekolahController;
     Route::get('/registrasi-kpa', [KpaController::class, 'index']);
     Route::resource('kpa', KpaController::class);
     Route::resource('/absen', AbsenController::class);
+    Route::resource('/daftarhadir', DaftarhadirController::class);
     Route::resource('/bukutamu', BukuTamuController::class);
     Route::resource('/rakorda', RakordaController::class);
     Route::resource('/login', AuthController::class);
