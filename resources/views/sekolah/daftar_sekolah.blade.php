@@ -483,7 +483,7 @@
                         belum.checked = false
                         lulus.checked = true
                     }
-                    if (peringkat == "BT") {
+                    if (peringkat == "BT"||"TT") {
                         $('#field_bt').show();
                         $('#field_bt2').show();
                     } else {

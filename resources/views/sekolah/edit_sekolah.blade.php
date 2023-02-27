@@ -443,7 +443,11 @@
                 var peringkat = "{{ $unit->peringkat }}";
                 var meluluskan = "{{ $unit->meluluskan }}";
 
+<<<<<<< HEAD
                 if (peringkat == "BT" || "TT") {
+=======
+                if (peringkat == "BT"||"TT") {
+>>>>>>> 812ff1093bf38ae16aa28cb4aaefd86e758e0672
                     $('#field_bt').show();
                     $('#field_bt2').show();
                 } else {
