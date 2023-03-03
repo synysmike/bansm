@@ -22,7 +22,8 @@ class VerifikasiController extends Controller
         $tittle = $user->nama;
         $role = $user->jabatan;
         if($role=="admin"){
-            $data = Verifikasi::all();
+            $data = Verifikasi::where('cek','0')
+            ->get();
         }elseif($role=="sekre"){
             $korwil = $user->role;
             $data = Verifikasi::where('cek', 0)

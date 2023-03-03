@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KpaController;
 use App\Http\Controllers\AuthController;
@@ -31,32 +32,40 @@ use App\Http\Controllers\DetilSekolahController;
 
 
 
-    Route::get('/', [HomeController::class, 'index']);
-    Route::get('/total', [VerifikasiController::class, 'total']);
-    Route::get('/status', [DetilsekolahController::class, 'status']);
-    Route::post('/perbaikan', [DetilsekolahController::class, 'perbaikan']);
-    Route::get('/registrasi-kpa', [KpaController::class, 'index']);
-    Route::resource('kpa', KpaController::class);
-    Route::resource('/absen', AbsenController::class);
-    Route::resource('/daftarhadir', DaftarhadirController::class);
-    Route::resource('/bukutamu', BukuTamuController::class);
-    Route::resource('/rakorda', RakordaController::class);
-    Route::resource('/login', AuthController::class);
-    Route::post('/login', [AuthController::class,'authenticate'])->name('authenticate');  
-    Route::post('/logout',[ AuthController::class,'logout']);  
+Route::get('/', [HomeController::class, 'index']);
+Route::get('/total', [VerifikasiController::class, 'total']);
+Route::get('/status', [DetilsekolahController::class, 'status']);
+Route::post('/perbaikan', [DetilsekolahController::class, 'perbaikan']);
+Route::post('/login', [AuthController::class, 'authenticate'])->name('authenticate');
 
-    Route::middleware(['auth', 'role:admin'])->group(function () {
-        Route::resource('user', UserController::class);
-    });
-    Route::middleware(['auth', 'role:kpa'])->group(function () {
-        Route::resource('verifikasi', VerifikasiController::class);
-        Route::get('/admin', [SekolahController::class,'admin']);
-    });
+Route::get('/loginbansm', [AuthController::class, 'login'])->name('authenticate');
+Route::resource('/login', AuthController::class);
+Route::post('/logout', [AuthController::class, 'logout']);
+
+// public access
+Route::get('/registrasi-kpa', [KpaController::class, 'index']);
+Route::resource('kpa', KpaController::class);
+Route::resource('/absen', AbsenController::class);
+Route::resource('/daftarhadir', DaftarhadirController::class);
+Route::resource('/bukutamu', BukuTamuController::class);
+Route::resource('/rakorda', RakordaController::class);
+
+
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::resource('user', UserController::class);
+});
+
+Route::middleware(['auth', 'role:kpa'])->group(function () {
+    Route::resource('verifikasi', VerifikasiController::class);
+    Route::get('/admin', [SekolahController::class, 'admin']);
+});
+
 Route::middleware(['auth', 'role:sekolah'])->group(function () {
     Route::resource('/detilsekolah', DetilSekolahController::class);
 });
+
 Route::middleware(['auth', 'role:kpa|admin'])->group(function () {
     Route::resource('sekolah', SekolahController::class);
-    Route::get('/bmps', [SekolahController::class,'bmps']);
-    Route::post('/bmps', [SekolahController::class,'bmps']);
+    Route::get('/bmps', [SekolahController::class, 'bmps']);
+    Route::post('/bmps', [SekolahController::class, 'bmps']);
 });

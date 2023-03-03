@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Form;
 use App\Models\Daftarhadir;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreDaftarhadirRequest;
@@ -19,8 +20,11 @@ class DaftarhadirController extends Controller
      */
     public function index(Request $request)
     {
-        $judul = "Daftar Hadir Sosialisasi Tahap 1";
-        $kategori = "<input type='hidden' name='kat_dh' id='kat_dh' value='sosialisasi tahap 1'>";
+        #edit ini
+        $judul = "Daftar Hadir Sosialisasi Tahap 3";
+        $kategori = "<input type='hidden' name='kat_dh' id='kat_dh' value='sosialisasi tahap 3'>";
+        #sampai sini
+        
         $theads = [
             'No',
             'Nama',
@@ -39,7 +43,7 @@ class DaftarhadirController extends Controller
             'kabkota',
             'jabatan',
             'alamat_kantor',
-            'created_at'
+            'tanggal'
         ];
         $fields = [
             'nama',
@@ -54,13 +58,15 @@ class DaftarhadirController extends Controller
         $form = Form::select('tag_field')
             ->whereIn("nama_field",$fields)
             ->get();
-
-            $data = Daftarhadir::orderBy('created_at','DESC')->get();
-            if ($request->ajax()) {            
-                return DataTables::of($data)
-                    ->addIndexColumn()
-                    ->make(true);
-                }
+        $mytime = Carbon::now('Asia/Jakarta');
+        $today = $mytime->format('d-m-Y');
+        $data = Daftarhadir::where('tanggal',$today)
+        ->orderBy('created_at','DESC')->get();
+        if ($request->ajax()) {            
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->make(true);
+            }
         
         // dd($form);
         return view('daftarhadir.form', compact('unit','theads','judul','kategori','form'));
@@ -107,7 +113,7 @@ class DaftarhadirController extends Controller
         // simpan nama gambar
         
         // $validator['signature'] = Storage::disk('local')->put($file, $ttd);
-        
+        $mytime = Carbon::now('Asia/Jakarta');
         $unit =
             Daftarhadir::updateOrCreate(
             [
@@ -118,6 +124,7 @@ class DaftarhadirController extends Controller
             'npsn' => $validator['npsn'],
             'nama_lembaga' => $validator['nama_lembaga'],
             'alamat_kantor' => $request->alamat_kantor,
+            'tanggal'=>$mytime->format('d-m-Y'),
             'jabatan' => $validator['jabatan'],
             'ttd' => $file
 

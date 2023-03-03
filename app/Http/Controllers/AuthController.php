@@ -24,6 +24,21 @@ class AuthController extends Controller
             return view('auth.login');
         // }
     }
+    public function login()
+    {
+        // $user = Auth::user();
+        // if ($user->jabatan == 'kpa') {
+        //     return redirect('/sekolah');
+        // }elseif ($user->jabatan  == 'lembaga') {
+        //     return redirect('/detilsekolah');
+        // }    elseif ($user->jabatan  == 'bmps') {
+        //     return redirect('/bmps');
+        // }       
+
+        // else{
+            return view('auth.login2');
+        // }
+    }
     public function authenticate(Request $request){
         $request->validate([
             'username'=>'required',
@@ -44,6 +59,9 @@ class AuthController extends Controller
             }elseif($user->jabatan == 'sekre'){
                 $request->session()->regenerate();
                 return redirect()->intended('/verifikasi');
+            }elseif($user->jabatan == 'admin'){
+                $request->session()->regenerate();
+                return redirect()->intended('/verifikasi');
             }
         }
         return back()->with('loginError','Login Gagal');
@@ -52,6 +70,6 @@ class AuthController extends Controller
         Auth::logout(); 
         $request->session()->invalidate();    
         $request->session()->regenerateToken();    
-        return redirect('/login');
+        return redirect('/loginbansm');
     }
 }

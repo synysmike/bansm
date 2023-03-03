@@ -2,7 +2,7 @@
 @push('tittle')
 <title>Login &mdash; BAN-S/M JATIM</title>
 <meta property="og:title" content="Login" />
-{{-- <meta property="og:type" content="video.movie" /> --}}
+<!-- <meta property="og:type" content="video.movie" />  -->
 <meta property="og:url" content="{{url()->current()}}" />
 <meta property="og:image" content="/ban.png" />
 <link rel="icon" type="image/x-icon" href="/ban.png">
@@ -12,7 +12,7 @@
     <div class="d-flex align-items-stretch flex-wrap">
         <div class="col-lg-4 col-md-6 col-12 order-lg-1 min-vh-100 order-2 bg-white">
             <div class="m-3 p-4">
-               {{-- @if(session()->has('success'))
+            @if(session()->has('success'))
                 <div class="alert alert-success alert-dismissable fade show" role="alert">
                     {{ session('success') }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -52,7 +52,7 @@
                         </div>
                     </div>
 
-                     <div class="form-group">
+                    <div class="form-group">
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" name="remember" class="custom-control-input" tabindex="3"
                                 id="remember-me">
@@ -60,36 +60,17 @@
                         </div>
                     </div> 
                     <div class="form-group text-right">
-                        <a href="auth-forgot-password.html" class="float-left mt-3">
+                        <!-- <a href="auth-forgot-password.html" class="float-left mt-3">
                             Forgot Password?
-                        </a> 
+                        </a>  -->
                         <button type="submit" class="btn btn-primary btn-lg btn-icon icon-right"
                             tabindex="4">
                             Login
                         </button>
                     </div>
                 </form>
---}}
 
 
-
-
-<p>Join Group Telegram <a href="https://t.me/+4WYclCeQ_DQwYTVl">https://t.me/+4WYclCeQ_DQwYTVl</a></p>
-
-    <p>Link Sispena <a href="https://bansm.kemdikbud.go.id/sispena2020/login"> https://bansm.kemdikbud.go.id/sispena2020/login </a> </p>
-
-        <p>Petunjuk Pengajuan
-<a href="https://youtu.be/NjhrwYBsWx0">https://youtu.be/NjhrwYBsWx0</a>
-</p>
-
-<p>Tips Unggah Dokumen
-<a href="https://www.youtube.com/watch?v=4ln-LiEdrko">https://www.youtube.com/watch?v=4ln-LiEdrko</a>
-</p>
-
-
-<p>Petunjuk Pengisian DIA
-<a href="https://www.youtube.com/watch?v=Q0ZhM3tQraE&t=220s">https://www.youtube.com/watch?v=Q0ZhM3tQraE&t=220s</a>
-</p>
 
 
             </div>
