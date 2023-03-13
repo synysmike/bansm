@@ -38,15 +38,19 @@ Route::get('/status', [DetilsekolahController::class, 'status']);
 Route::post('/perbaikan', [DetilsekolahController::class, 'perbaikan']);
 Route::post('/login', [AuthController::class, 'authenticate'])->name('authenticate');
 
-Route::get('/loginbansm', [AuthController::class, 'login'])->name('authenticate');
-Route::resource('/login', AuthController::class);
+Route::get('/loginbansm', [AuthController::class, 'login'])->name('login');
+// Route::resource('/login', AuthController::class);
 Route::post('/logout', [AuthController::class, 'logout']);
 
 // public access
 Route::get('/registrasi-kpa', [KpaController::class, 'index']);
+Route::get('/configtable', [DaftarhadirController::class, 'config']);
+Route::get('/kesanggupan', [DaftarhadirController::class, 'kesediaan']);
+Route::post('/kesanggupan', [DaftarhadirController::class, 'postkesediaan']);
+Route::post('/settable', [DaftarhadirController::class, 'set_config']);
 Route::resource('kpa', KpaController::class);
 Route::resource('/absen', AbsenController::class);
-Route::resource('/daftarhadir', DaftarhadirController::class);
+Route::resource('/ppdatahap1', DaftarhadirController::class);
 Route::resource('/bukutamu', BukuTamuController::class);
 Route::resource('/rakorda', RakordaController::class);
 

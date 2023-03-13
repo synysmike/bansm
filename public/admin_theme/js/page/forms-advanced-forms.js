@@ -2,7 +2,7 @@
 
 var cleavePN = new Cleave(".phone-number", {
     phone: true,
-    phoneRegionCode: "us",
+    phoneRegionCode: "id",
 });
 var cleaveC = new Cleave(".currency", {
     numeral: true,

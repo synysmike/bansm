@@ -451,7 +451,7 @@
                     // get data from tb sekolahs
                     var status = data.status;
                     var peringkat = data.peringkat;
-                    var file_ijop = data.file_ijop;                    
+                    var file_ijop = data.file_ijop;
                     var meluluskan = data.meluluskan;
                     var kelas = data.kelas;
 
@@ -476,14 +476,14 @@
                     if (meluluskan == null) {
                         belum.checked = true
                         lulus.checked = false
-                    } else if(meluluskan == 0){
+                    } else if (meluluskan == 0) {
                         belum.checked = true
                         lulus.checked = false
-                    }else if(meluluskan == 1){
+                    } else if (meluluskan == 1) {
                         belum.checked = false
                         lulus.checked = true
                     }
-                    if (peringkat == "BT"||"TT") {
+                    if (peringkat == "BT" || "TT") {
                         $('#field_bt').show();
                         $('#field_bt2').show();
                     } else {
@@ -509,8 +509,8 @@
                     }
 
 
-                    if (kelas!== null){
-                        $("option[value|='"+kelas+"']").attr('selected','selected');
+                    if (kelas !== null) {
+                        $("option[value|='" + kelas + "']").attr('selected', 'selected');
                     }
 
 
@@ -528,13 +528,18 @@
                         $("#id-form").validate({
                             // validasi mime type
                             rules: {
+                                //idfield
                                 document: {
                                     // wajib
                                     extension: "pdf", // ekstensi pdf
                                     filesize: 2097152, // ukuran file < 2mb
-                                }
+                                },
+                                // nama : {
+                                //     required : true,
+                                // }
                             },
                             messages: {
+                                //pesan error diambil dari atribut
                                 document: {
                                     required: "Tidak Boleh Kosong",
                                     extension: "Mohon mengunggah dokumen berekstensi *pdf"
@@ -585,7 +590,7 @@
                                             .errors.ijop);
                                         $('#errkondisi').text(data
                                             .responseJSON.errors.kondisi
-                                            );
+                                        );
                                         $('#errmasa').text(data.responseJSON
                                             .errors.ijop_masa);
                                         $('#errkelas').text(data
@@ -593,7 +598,7 @@
                                             .ijop_kelas);
                                         $('#form_submit').html(
                                             'Gagal Simpan, mohon diperbaiki lalu klik saya lagi'
-                                            );
+                                        );
                                     }
                                 });
                             }

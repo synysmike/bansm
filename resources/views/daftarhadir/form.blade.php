@@ -87,18 +87,27 @@
                             </div>
 
                             <div class="card-body">
-                                <form id="id-form" class="needs-validation" novalidate=""
-                                    enctype="multipart/form-data">
+                                <form id="id-form" enctype="multipart/form-data">
                                     {!! $kategori !!}
                                     @foreach ($form as $key)
                                         {!! $key->tag_field !!}
                                     @endforeach
-                                    <div class="form-group">
-
+                                    <div class='form-group'>
+                                        <input required type='hidden' id='kat_dh' name='kat_dh' value="{{ $kat }}">
+                                        <input required type='hidden' id='signature' name='signature'>
+                                        <label for="sig">Tandatangan :</label>
+                                    </br>
+                                        <div class="js-signature" data-width="600" data-height="200"
+                                            data-border="1px solid black" data-line-color="#000000"
+                                            data-auto-fit="true"></div>
+                                        <div id="errsign" class="alert-danger"></div>
+                                        <button id="clearBtn" class="btn btn-danger">Ulangi TTD</button>
+                                        <div class="invalid-feedback">
+                                        </div>
                                     </div>
+                                    <button type="button" class="btn btn-primary btn-icon icon-right"
+                                        id="btn-save">simpan</button>
                                 </form>
-                                <button type="button" class="btn btn-primary btn-icon icon-right"
-                                    id="btn-save">simpan</button>
                                 {{-- <button type="submit" class="btn btn-primary btn-lg btn-block">
                                             Register
                                         </button> --}}
@@ -131,15 +140,16 @@
         integrity="sha512-0QDLUJ0ILnknsQdYYjG7v2j8wERkKufvjBNmng/EdR/s/SE7X8cQ9y0+wMzuQT0lfXQ/NhG+zhmHNOWTUS3kMA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+        <script src="jq-signature/jq-signature.min.js"></script>
     <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/additional-methods.js"></script>
-
+    <script src="/admin_theme/library/cleave.js/dist/cleave.min.js"></script>
+    <script src="/admin_theme/library/cleave.js/dist/addons/cleave-phone.id.js"></script>
     <script src="{{ asset('admin_theme/library/sweetalert/dist/sweetalert.min.js') }}"></script>
     <script src="{{ asset('admin_theme/library/datatables/media/js/jquery.dataTables.min.js') }}"></script>
     <script src="admin_theme/library/selectric/public/jquery.selectric.min.js"></script>
     <script src="admin_theme/library/jquery.pwstrength/jquery.pwstrength.min.js"></script>
 
     <!-- Page Specific JS File -->
-    <script src="jq-signature/jq-signature.min.js"></script>
     <script src="admin_theme/js/page/auth-register.js"></script>
 
     <!-- Template JS File -->
@@ -152,7 +162,11 @@
         $(document).ready(function() {
 
 
-
+            "use strict";
+            var cleavePN = new Cleave(".phone-number", {
+                phone: true,
+                phoneRegionCode: "id",
+            });
             // for limit number char on phone number
             // $('#btn-save').attr('disabled', true);
             $('.js-signature').jqSignature();
@@ -173,9 +187,9 @@
 
 
             $('#modal-2').click(function() {
-                
+
                 $("#modal-show").modal('show');
-                
+
                 // dynamic datatable
                 var label = [];
                 '@foreach ($unit as $unt)';
@@ -195,15 +209,15 @@
                     'processing': true,
                     'serverSide': true, //aktifkan server-side 
                     'ajax': {
-                        'url': '/daftarhadir', // ambil data
+                        'url': '/{{ $link }}', // ambil data
                         'type': 'GET'
                     },
                     // parsing nama columns
                     'columns': columns
                 });
                 var oTable = $("#table-1")
-                            .dataTable();
-                        oTable.fnDraw(false);
+                    .dataTable();
+                oTable.fnDraw(false);
             });
 
             $(document).on('click', '#btn-save', function() {
@@ -213,11 +227,11 @@
                 // $('#signature').append(img);
                 // console.log(sig.signature('toDataURL'));
                 // var mycanvas = document.getElementById('canvas');
-                var dataUrl = $('.js-signature').jqSignature('getDataURL');
-                var img = dataUrl;
-                // // console.log(img)
-                anchor = $("#signature");
-                anchor.val(img);
+                // var dataUrl = $('.js-signature').jqSignature('getDataURL');
+                // var img = dataUrl;
+                // // // console.log(img)
+                // var anchor = $("#signature");
+                // anchor.val(img);
                 $("#id-form").submit();
             });
 
@@ -227,13 +241,13 @@
                 var formData = new FormData(this);
                 $.ajax({
                     type: "POST",
-                    url: "daftarhadir",
+                    url: "/{{ $link }}",
                     data: formData,
                     dataType: 'json',
                     processData: false,
                     contentType: false,
                     success: function(data) {
-                        $('.js-signature').jqSignature('clearCanvas');
+                        // $('.js-signature').jqSignature('clearCanvas');
                         $('#id-form').trigger(
                             "reset");
                         $('#btn-save').html('Tersimpan');
@@ -241,17 +255,15 @@
                         swal("Berhasil",
                             "Berkas telah tersimpan",
                             "success");
-                        
+
                     },
                     error: function(data) {
                         console.log('Error', data);
                         $('#errnama').text('Mohon Mengisi Nama');
                         $('#errhp').text("nomor HP jangan kosong");
-                        $('#errasal').text(
-                            "asalnya belum diisi,Apakah Anda dari Asesor/Lembaga(Sekolah/Madrasah/Yayasan)/Dinas/Kemenag?"
-                            );
-                        $('#errkpr').text('Keperluannya apa dulu');
-                        $('#errsign').text("jangan di kosongi tandatangannya");
+                        $('#errsehat').text('cek ukuran/jenis file, harus pdf, dan maksimal 1MB');
+                        $('#errfotorek').text('cek ukuran/jenis file, harus pdf/jpg/png, dan maksimal 1MB');
+                        $('#errtugas').text('cek ukuran/jenis file, harus pdf, dan maksimal 1MB');
                         $('#btn-save').html(
                             'Gagal Simpan, mohon diperbaiki lalu klik saya lagi'
                         );
